@@ -1,7 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import React, { useState } from "react";
 import Logo from "./Logo";
-import { useRouter } from "next/router";
+import { usePathname, useRouter } from "next/navigation";
 import {
   GithubIcon,
   LinkedInIcon,
@@ -14,13 +16,13 @@ import { motion } from "framer-motion";
 import useThemeSwitcher from "./hooks/useThemeSwitcher";
 
 const CustomLink = ({ href, title, className }) => {
-  const router = useRouter();
+  const pathname = usePathname();
   return (
     <Link href={href} className={`${className} relative group`}>
       {title}
       <span
         className={`h-[2px] bg-indigo-500 inline-block bg-light absolute left-0 -bottom-0.5 group-hover:w-full transition-[width] ease duration-300 dark:bg-dark ${
-          router.asPath === href ? "w-full" : "w-0"
+          pathname === href ? "w-full" : "w-0"
         }`}
       >
         &nbsp;
@@ -30,6 +32,7 @@ const CustomLink = ({ href, title, className }) => {
 };
 const MobileLink = ({ href, title, className = "", toggle }) => {
   const router = useRouter();
+  const pathname = usePathname();
 
   const handleClick = () => {
     toggle();
@@ -45,7 +48,7 @@ const MobileLink = ({ href, title, className = "", toggle }) => {
       {title}
       <span
         className={`h-[2px] bg-indigo-500 inline-block bg-light absolute left-0 -bottom-0.5 group-hover:w-full transition-[width] ease duration-300 dark:bg-dark ${
-          router.asPath === href ? "w-full" : "w-0"
+          pathname === href ? "w-full" : "w-0"
         }`}
       >
         &nbsp;
@@ -97,40 +100,13 @@ const NavBar = () => {
         <nav className="flex flex-wrap items-center justify-center ">
         
           <motion.a
-            href="https://twitter.com/hamzajzaidi/"
-            target={"_blank"}
-            whileHover={{ y: -2 }}
-            whileTap={{ scale: 0.9 }}
-            className="w-6 mr-2"
-          >
-            <TwitterIcon />
-          </motion.a>
-          <motion.a
-            href="https://github.com/HamzaZaidiX/"
-            target={"_blank"}
-            whileHover={{ y: -2 }}
-            whileTap={{ scale: 0.9 }}
-            className="w-6 mx-3"
-          >
-            <GithubIcon />
-          </motion.a>
-          <motion.a
-            href="https://www.linkedin.com/in/shjz/"
+            href="https://linkedin.com/in/vencent-domingo"
             target={"_blank"}
             whileHover={{ y: -2 }}
             whileTap={{ scale: 0.9 }}
             className="w-6 mx-3"
           >
             <LinkedInIcon />
-          </motion.a>
-          <motion.a
-            href="https://api.whatsapp.com/send?phone=923352851947&app=facebook&entry_point=page_cta&fbclid=IwY2xjawFfi9gBHUhVHIUy2pIkHelXuOqxRbDCgRi-MgHY7s7Ca9QM4aTeZvJRiN2J9FbU5Q"
-            target={"_blank"}
-            whileHover={{ y: -2 }}
-            whileTap={{ scale: 0.9 }}
-            className="w-6 mx-3"
-          >
-            <WhatsappIcon />
           </motion.a>
           <button
             className={`ml-3 flex items-center justify-center rounded-full p-1 ${
@@ -195,27 +171,7 @@ const NavBar = () => {
           </nav>
           <nav className="flex flex-wrap items-center justify-center mt-2">
             <motion.a
-              href="https://twitter.com/hamzajzaidi/"
-              target={"_blank"}
-              whileHover={{ y: -2 }}
-              whileTap={{ scale: 0.9 }}
-              className="w-6 mr-3 sm:mx-1"
-              toggle={handleClick}
-            >
-              <TwitterIcon />
-            </motion.a>
-            <motion.a
-              href="https://github.com/HamzaZaidiX"
-              target={"_blank"}
-              whileHover={{ y: -2 }}
-              whileTap={{ scale: 0.9 }}
-              className="w-6 mx-3 rounded-full sm:mx-1"
-              toggle={handleClick}
-            >
-              <GithubIcon />
-            </motion.a>
-            <motion.a
-              href="https://www.linkedin.com/in/shjz/"
+              href="https://linkedin.com/in/vencent-domingo"
               target={"_blank"}
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.9 }}
@@ -224,16 +180,6 @@ const NavBar = () => {
             >
               <LinkedInIcon />
             </motion.a>
-            <motion.a
-            href="https://api.whatsapp.com/send?phone=923352851947&app=facebook&entry_point=page_cta&fbclid=IwY2xjawFfi9gBHUhVHIUy2pIkHelXuOqxRbDCgRi-MgHY7s7Ca9QM4aTeZvJRiN2J9FbU5Q"
-            target={"_blank"}
-            whileHover={{ y: -2 }}
-            whileTap={{ scale: 0.9 }}
-            className="w-6 mx-3 sm:mx-1"
-            toggle={handleClick}
-          >
-            <WhatsappIcon />
-          </motion.a>
 
             <button
               className={`ml-3 flex items-center justify-center rounded-full p-1 ${

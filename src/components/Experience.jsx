@@ -5,39 +5,30 @@ import ListIcon from "./ListIcon";
 const experiences = [
   {
     id: 1,
-    position: "Internship",
-    company: "MM Pakistan (Pvt.) Ltd.",
+    position: "Senior Frontend Web Developer",
+    company: "InGnius Systems Private Limited",
     companyLink: "",
-    time: "Jun - Jul 2025",
-    address: "Karachi",
-    work: "Internship",
+    time: "June 2025 - Present",
+    address: "Taguig",
+    work: "Engineered and launched complete websites. Managed full project lifecycle, improved SEO frameworks, and developed custom automation tools using WP-CLI and Bash.",
   },
   {
     id: 2,
-    position: "Web Developer Intern",
-    company: "Grocode Inc.",
+    position: "Senior Frontend Web Developer",
+    company: "Vishay Philippines Inc.",
     companyLink: "",
-    time: "Aug - Sep 2024",
-    address: "Karachi",
-    work: "Web Development and Design",
+    time: "May 2018 - September 2024",
+    address: "Makati",
+    work: "Transitioned backend from a Cocoon-based website to CMS-driven architecture. Developed .NET applications, led SEO enhancements achieving a 12% boost, and documented project processes.",
   },
   {
     id: 3,
-    position: "Freelancing",
-    company: "Freelance",
+    position: "Student Trainee",
+    company: "Vishay Philippines Inc.",
     companyLink: "",
-    time: "Current",
-    address: "Karachi",
-    work: "Web Development and Design",
-  },
-  {
-    id: 4,
-    position: "Chat Support Agent",
-    company: "TFC Call Center",
-    companyLink: "",
-    time: "Mar 2023 - Mar 2024",
-    address: "Karachi",
-    work: "Sales & Telemarketing",
+    time: "September 2017 - March 2018",
+    address: "Makati",
+    work: "Gained hands-on experience in JavaScript, CSS, HTML. Assisted engineers by developing calculators for complex computations and applied XML/XSLT skills.",
   },
 ];
 
@@ -50,9 +41,9 @@ const Details = ({ position, company, companyLink, time, address, work }) => {
     >
       <ListIcon reference={ref} />
       <motion.div>
-        <h3
+        <motion.h3
           className="text-2xl font-bold capitalize sm:text-xl xs:text-lg"
-          intial={{ y: 50 }}
+          initial={{ y: 50 }}
           whileInView={{ y: 0 }}
           transition={{ duration: 0.5, type: "spring" }}
         >
@@ -63,7 +54,7 @@ const Details = ({ position, company, companyLink, time, address, work }) => {
           >
             @{company}
           </a>
-        </h3>
+        </motion.h3>
         <span className="font-medium capitalize text-dark/75 dark:text-light/75 xs:text-sm">
           {time} | {address}
         </span>

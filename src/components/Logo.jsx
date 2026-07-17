@@ -22,7 +22,7 @@ const Logo = () => {
           transition: { duration: 5, repeat: Infinity},
         }}
       >
-        HZ
+        VD
       </MotionLink>
     </div>
   );

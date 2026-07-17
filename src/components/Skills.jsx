@@ -2,96 +2,21 @@ import React from "react";
 import { motion } from "framer-motion";
 
 const skills = [
-  {
-    id: 1,
-    name: "HTML",
-    x: "-20vw",
-    y: "2vw",
-  },
-  {
-    id: 2,
-    name: "CSS",
-    x: "-5vw",
-    y: "-10vw",
-  },
-  {
-    id: 3,
-    name: "JavaScript",
-    x: "20vw",
-    y: "6vw",
-  },
-  {
-    id: 4,
-    name: "ReactJS",
-    x: "0vw",
-    y: "12vw",
-  },
-  {
-    id: 5,
-    name: "NextJS",
-    x: "-20vw",
-    y: "-15vw",
-  },
-  {
-    id: 6,
-    name: "React-Native",
-    x: "15vw",
-    y: "-12vw",
-  },
-  {
-    id: 7,
-    name: "UI / UX",
-    x: "32vw",
-    y: "-5vw",
-  },
-  {
-    id: 8,
-    name: "Figma",
-    x: "1vw",
-    y: "-18vw",
-  },
-  {
-    id: 9,
-    name: "SQL / No-SQL Databases",
-    x: "-25vw",
-    y: "10vw",
-  },
-  {
-    id: 10,
-    name: "Python",
-    x: "18vw",
-    y: "18vw",
-  },
-  {
-    id: 11,
-    name: "Tailwind CSS",
-    x: "-15vw",
-    y: "-4vw",
-  },
-  {
-    id: 12,
-    name: "Software Project Management",
-    x: "-8vw",
-    y: "18vw",
-  },
-  {
-    id: 13,
-    name: "Web Design",
-    x: "-25vw",
-    y: "-9vw",
-  },
-  {
-    id: 14,
-    name: "Power Bi",
-    x: "32vw",
-    y: "8vw",
-  },
-  {
-    id: 15,
-    name: "MS Office",
-    x: "15vw",
-    y: "-2vw",
-  },
+  { id: 1, name: "JavaScript", x: "-20vw", y: "2vw" },
+  { id: 2, name: "CSS/SCSS", x: "-5vw", y: "-10vw" },
+  { id: 3, name: "ReactJS", x: "20vw", y: "6vw" },
+  { id: 4, name: "Next.js", x: "0vw", y: "12vw" },
+  { id: 5, name: "WordPress", x: "-20vw", y: "-15vw" },
+  { id: 6, name: "PHP", x: "15vw", y: "-12vw" },
+  { id: 7, name: ".NET / C#", x: "32vw", y: "-5vw" },
+  { id: 8, name: "Tailwind CSS", x: "1vw", y: "-18vw" },
+  { id: 9, name: "MySQL / Databases", x: "-25vw", y: "10vw" },
+  { id: 10, name: "Technical SEO", x: "18vw", y: "18vw" },
+  { id: 11, name: "Linux CLI", x: "-15vw", y: "-4vw" },
+  { id: 12, name: "Git", x: "-8vw", y: "18vw" },
+  { id: 13, name: "RESTful APIs", x: "-25vw", y: "-9vw" },
+  { id: 14, name: "XML/XSLT", x: "32vw", y: "8vw" },
+  { id: 15, name: "Performance Tuning", x: "15vw", y: "-2vw" },
 ];
 
 const Skill = ({ name, x, y }) => {

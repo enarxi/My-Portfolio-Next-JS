@@ -5,27 +5,17 @@ import ListIcon from "./ListIcon";
 const education = [
   {
     id: 1,
-    type: "Bachelor's in Computer Science",
-    place: "Iqra University, Karachi",
-    time: "2020 - 2025",
-    info: "A Bachelor's of Science in Computer Science is a specialized undergraduate program that focuses on the design and development of software systems and applications, preparing students for careers in software engineering and programming.",
+    type: "Bachelor of Technology in Information Technology",
+    place: "Technological University of the Philippines - Taguig",
+    time: "June 2018 - July 2019",
+    info: "",
   },
   {
     id: 2,
-    type: "Pre-Engineering ",
-    place:
-      "Govt. Jinnah Boys College",
-    time: "2017 - 2019",
-    info: "Intermidiate",
-
-  },
-  {
-    id: 2,
-    type: "Computer Science",
-    place:
-      "Fatimiyah Boys School",
-    time: "2015 - 2017",
-    info: "Matriculation",
+    type: "Computer Engineering Technology",
+    place: "Technological University of the Philippines - Taguig",
+    time: "June 2015 - July 2018",
+    info: "Cum Laude, Rank 1 in Computer Engineering Technology Batch 2018",
   },
 ];
 
@@ -38,14 +28,14 @@ const Details = ({ type, time, place, info }) => {
     >
       <ListIcon reference={ref} />
       <motion.div>
-        <h3
+        <motion.h3
           className="capitalize font-bold text-2xl sm:text-xl xs:text-lg"
-          intial={{ y: 50 }}
+          initial={{ y: 50 }}
           whileInView={{ y: 0 }}
           transition={{ duration: 0.5, type: "spring" }}
         >
           {type}
-        </h3>
+        </motion.h3>
         <span className="capitalize font-medium text-dark/75 dark:text-light/75 xs:text-sm">
           {time} | {place}
         </span>

@@ -14,10 +14,9 @@ const Footer = () => {
           </span>{" "}
           by &nbsp;
           <Link
-            href="https://github.com/HamzaZaidiX/"
+            href="/"
             className="underline underline-offset-4 decoration-wavy decoration-indigo-400 hover:decoration-indigo-500"
-            target={"_blank"}
-          >Hamza Zaidi
+          >Vencent Domingo
           </Link>
         </div>
         {/* <Link
