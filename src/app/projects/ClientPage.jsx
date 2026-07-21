@@ -14,8 +14,8 @@ const FramerImage = motion(Image);
 
 const FeaturedProjects = ({ type, title, summary, img, link }) => {
   return (
-    <article className="relative flex items-center justify-between w-full p-12 border border-solid shadow-2xl rounded-3xl rounded-br-2xl border-dark bg-light dark:bg-dark dark:border-light lg:flex-col lg:p-8 xs:rounded-2xl xs:rounded-br-3xl xs:p-4">
-      <div className="absolute top-0 -right-3 -z-10 w-[101%] h-[103%] rounded-[2.5rem] bg-dark rounded-br-3xl dark:bg-light xs:-right-2 sm:h-[102%] xs:w-full xs:rounded-[1.5rem]" />
+    <article className="relative flex items-center justify-between w-full p-12 border border-solid shadow-2xl rounded-3xl rounded-br-2xl border-fg bg-bg lg:flex-col lg:p-8 xs:rounded-2xl xs:rounded-br-3xl xs:p-4">
+      <div className="absolute top-0 -right-3 -z-10 w-[101%] h-[103%] rounded-[2.5rem] bg-fg rounded-br-3xl xs:-right-2 sm:h-[102%] xs:w-full xs:rounded-[1.5rem]" />
       <Link
         href={link}
         target="_blank"
@@ -30,7 +30,7 @@ const FeaturedProjects = ({ type, title, summary, img, link }) => {
         />
       </Link>
       <div className="flex flex-col items-start justify-between w-1/2 pl-6 lg:w-full lg:pl-0 lg:pt-6">
-        <span className="text-xl font-medium text-[#3374c9] dark:text-[#3374c9] xs:text-base">
+        <span className="text-xl font-medium text-accent xs:text-base">
           {type}
         </span>
         <Link
@@ -38,18 +38,18 @@ const FeaturedProjects = ({ type, title, summary, img, link }) => {
           target="_blank"
           className="hover:underline underline-offset-3 decoration-wavy decoration-[#3374c9]"
         >
-          <h2 className="w-full my-2 text-4xl font-bold text-left dark:text-light sm:text-sm">
+          <h2 className="w-full my-2 text-4xl font-bold text-left sm:text-sm">
             {title}
           </h2>
         </Link>
-        <p className="my-2 font-medium text-gray-500 text-dark dark:text-light sm:text-sm line-clamp-3">
+        <p className="my-2 font-medium text-muted sm:text-sm line-clamp-3">
           {summary}
         </p>
         <div className="flex items-center mt-2">
           <Link
             href={link}
             target="_blank"
-            className="p-2 px-6 ml-4 text-lg font-semibold rounded-lg bg-dark text-light dark:bg-light dark:text-dark sm:px-4 sm:text-base"
+            className="p-2 px-6 ml-4 text-lg font-semibold rounded-lg bg-fg text-bg sm:px-4 sm:text-base"
           >
             Visit Site
           </Link>
@@ -60,8 +60,8 @@ const FeaturedProjects = ({ type, title, summary, img, link }) => {
 };
 const Project = ({ type, title, img, link, summary }) => {
   return (
-    <article className="relative flex flex-col items-center justify-center w-full p-6 border border-solid rounded-2xl border-dark bg-light dark:bg-dark dark:border-light xs:p-4">
-      <div className="absolute top-0 -right-3 -z-10 w-[101%] h-[103%] rounded-[2rem] bg-dark rounded-br-3xl dark:bg-light md:-right-2 md:w-[101%] sm:h-[102%] xs:rounded-[1.5rem]" />
+    <article className="relative flex flex-col items-center justify-center w-full p-6 border border-solid rounded-2xl border-fg bg-bg xs:p-4">
+      <div className="absolute top-0 -right-3 -z-10 w-[101%] h-[103%] rounded-[2rem] bg-fg rounded-br-3xl md:-right-2 md:w-[101%] sm:h-[102%] xs:rounded-[1.5rem]" />
       <Link
         href={link}
         target="_blank"
@@ -78,7 +78,7 @@ const Project = ({ type, title, img, link, summary }) => {
         />
       </Link>
       <div className="flex flex-col items-start justify-between w-full mt-4">
-        <span className="text-xl font-medium text-[#3374c9] dark:text-[#3374c9] lg:text-lg md:text-base">
+        <span className="text-xl font-medium text-accent lg:text-lg md:text-base">
           {type}
         </span>
         <Link
@@ -86,18 +86,18 @@ const Project = ({ type, title, img, link, summary }) => {
           target="_blank"
           className="hover:underline underline-offset-3 decoration-wavy decoration-[#3374c9]"
         >
-          <h2 className="w-full my-2 text-4xl font-bold text-left dark:text-light sm:text-sm">
+          <h2 className="w-full my-2 text-4xl font-bold text-left sm:text-sm">
             {title}
           </h2>
         </Link>
-        <span className="my-2 font-medium text-gray-500 text-dark dark:text-light sm:text-sm line-clamp-3">
+        <span className="my-2 font-medium text-muted sm:text-sm line-clamp-3">
           {summary}
         </span>
         <div className="flex items-center justify-between w-full mt-2">
           <Link
             href={link}
             target="_blank"
-            className="p-2 px-3 text-lg font-semibold border border-solid rounded-lg cursor-pointer border-dark hover:bg-dark hover:text-light dark:border-light dark:text-light md:text-base"
+            className="p-2 px-3 text-lg font-semibold border border-solid rounded-lg cursor-pointer border-fg hover:bg-fg hover:text-bg md:text-base"
           >
             Visit Site
           </Link>
@@ -111,7 +111,7 @@ const ClientPage = () => {
   return (
     <>
       <TransitionEffect />
-      <main className="flex flex-col items-center justify-center w-full mt-16 mb-16 select-text dark:text-light">
+      <main className="flex flex-col items-center justify-center w-full mt-16 mb-16 select-text text-fg">
         <Layout className="pt-16">
           <AnimatedText
             text="Innovate, Create, Inspire!"

@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import { FiUser, FiMail, FiMessageSquare } from "react-icons/fi";
 import HireMe from "@/components/HireMe";
 
+
 const ClientPage = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -184,7 +185,9 @@ const ClientPage = () => {
 
           </div>
         </Layout>
+
         <HireMe />
+
       </main>
     </>
   );

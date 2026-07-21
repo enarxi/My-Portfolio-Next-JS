@@ -4,24 +4,17 @@ import Link from "next/link";
 import React, { useState } from "react";
 import Logo from "./Logo";
 import { usePathname, useRouter } from "next/navigation";
-import {
-  GithubIcon,
-  LinkedInIcon,
-  MoonIcon,
-  SunIcon,
-  TwitterIcon,
-  WhatsappIcon,
-} from "./Icons";
-import { motion } from "framer-motion";
-import useThemeSwitcher from "./hooks/useThemeSwitcher";
+import { LinkedInIcon } from "./Icons";
+import { motion, AnimatePresence } from "framer-motion";
 
+// ─── Desktop link ───────────────────────────────────────────────
 const CustomLink = ({ href, title, className }) => {
   const pathname = usePathname();
   return (
     <Link href={href} className={`${className} relative group`}>
       {title}
       <span
-        className={`h-[2px] bg-indigo-500 inline-block bg-light absolute left-0 -bottom-0.5 group-hover:w-full transition-[width] ease duration-300 dark:bg-dark ${
+        className={`h-[1.5px] inline-block bg-accent absolute left-0 -bottom-0.5 group-hover:w-full transition-[width] ease duration-300 ${
           pathname === href ? "w-full" : "w-0"
         }`}
       >
@@ -30,7 +23,9 @@ const CustomLink = ({ href, title, className }) => {
     </Link>
   );
 };
-const MobileLink = ({ href, title, className = "", toggle }) => {
+
+// ─── Mobile link ─────────────────────────────────────────────────
+const MobileLink = ({ href, title, toggle }) => {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -39,168 +34,161 @@ const MobileLink = ({ href, title, className = "", toggle }) => {
     router.push(href);
   };
 
+  const isActive = pathname === href;
+
   return (
     <button
-      href={href}
-      className={`${className} relative group text-light dark:text-dark my-2`}
       onClick={handleClick}
+      className="group flex items-center gap-3 w-full py-3 border-b border-border/20 last:border-0"
     >
-      {title}
+      {/* Active / hover accent bar */}
       <span
-        className={`h-[2px] bg-indigo-500 inline-block bg-light absolute left-0 -bottom-0.5 group-hover:w-full transition-[width] ease duration-300 dark:bg-dark ${
-          pathname === href ? "w-full" : "w-0"
+        className={`block h-5 w-[2px] rounded-full bg-accent transition-all duration-300 ${
+          isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+        }`}
+      />
+      <span
+        className={`uppercase tracking-widest text-sm font-medium transition-colors duration-200 ${
+          isActive ? "text-accent" : "text-fg group-hover:text-accent"
         }`}
       >
-        &nbsp;
+        {title}
       </span>
     </button>
   );
 };
 
+// ─── Nav items list ───────────────────────────────────────────────
+const NAV_ITEMS = [
+  { href: "/", title: "Home" },
+  { href: "/about", title: "About" },
+  { href: "/projects", title: "Projects" },
+  { href: "/services", title: "Services" },
+  { href: "/blogs", title: "Blogs" },
+  { href: "/contact", title: "Contact" },
+];
+
+// ─── NavBar ───────────────────────────────────────────────────────
 const NavBar = () => {
-  const [mode, setMode] = useThemeSwitcher();
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleClick = () => {
-    setIsOpen(!isOpen);
-  };
+  const handleClick = () => setIsOpen((prev) => !prev);
+  const handleClose = () => setIsOpen(false);
 
   return (
-    <header className="fixed top-0 z-10 flex items-center justify-between w-full px-32 py-8 font-medium text-light dark:text-dark bg-dark dark:bg-light lg:px-16 md:px-12 sm:px-8">
-      <button
-        className="flex-col items-center justify-center hidden lg:flex"
-        onClick={handleClick}
-      >
-        <span
-          className={`bg-light transition-all duration-300 ease-out dark:bg-dark block h-0.5 w-6 rounded-sm ${
-            isOpen ? "rotate-45 translate-y-1" : "-translate-y-0.5"
-          }`}
-        ></span>
-        <span
-          className={`bg-light transition-all duration-300 ease-out dark:bg-dark block h-0.5 w-6 rounded-sm my-0.5 ${
-            isOpen ? "opacity-0" : "opacity-100"
-          }`}
-        ></span>
-        <span
-          className={`bg-light transition-all duration-300 ease-out dark:bg-dark block h-0.5 w-6 rounded-sm ${
-            isOpen ? "-rotate-45 -translate-y-1" : "translate-y-0.5"
-          }`}
-        ></span>
-      </button>
+    <>
+      {/* ── Header bar ────────────────────────────────────────── */}
+      <header className="sticky top-0 z-50 flex items-center justify-between w-full px-32 py-4 font-medium bg-bg/80 backdrop-blur-md border-b border-border/40 lg:px-16 md:px-12 sm:px-8">
+        {/* Logo — always left */}
+        <Logo />
 
-      <div className="flex items-center justify-between w-full lg:hidden select-none">
-        <nav>
-          <CustomLink href="/" title="Home" className="mx-2" />
-          <CustomLink href="/about" title="About" className="mx-2" />
-          <CustomLink href="/projects" title="Projects" className="mx-2" />
-          <CustomLink href="/services" title="Services" className="mx-2" />
-          <CustomLink href="/blogs" title="Blogs" className="mx-2" />
-          <CustomLink href="/contact" title="Contact" className="mx-2" />
-        </nav>
-        <nav className="flex flex-wrap items-center justify-center ">
-        
+        {/* Desktop nav — hidden on mobile */}
+        <div className="flex items-center gap-8 lg:hidden select-none">
+          <nav className="flex items-center gap-6">
+            {NAV_ITEMS.map(({ href, title }) => (
+              <CustomLink
+                key={href}
+                href={href}
+                title={title}
+                className="uppercase tracking-widest text-base"
+              />
+            ))}
+          </nav>
+
           <motion.a
             href="https://linkedin.com/in/vencent-domingo"
-            target={"_blank"}
+            target="_blank"
             whileHover={{ y: -2 }}
             whileTap={{ scale: 0.9 }}
-            className="w-6 mx-3"
+            className="w-5"
           >
             <LinkedInIcon />
           </motion.a>
-          <button
-            className={`ml-3 flex items-center justify-center rounded-full p-1 ${
-              mode === "light" ? "bg-dark text-light" : "bg-light text-dark"
-            }`}
-            onClick={() => setMode(mode === "light" ? "dark" : "light")}
-          >
-            {mode === "dark" ? (
-              <SunIcon className="fill-dark" />
-            ) : (
-              <MoonIcon className="fill-dark" />
-            )}
-          </button>
-        </nav>
-      </div>
-      {isOpen ? (
-        <motion.div
-          className="min-w-[70vw] flex flex-col justify-between z-30 items-center fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-dark/90 dark:bg-light/75 rounded-lg backdrop-blur-md py-32"
-          initial={{ scale: 0, opacity: 0, x: "-50%", y: "-50%" }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{
-            duration: 0.5,
-          }}
+        </div>
+
+        {/* Hamburger — hidden on desktop, shown on mobile */}
+        <button
+          aria-label={isOpen ? "Close menu" : "Open menu"}
+          className="hidden lg:flex flex-col items-center justify-center gap-[5px] p-1"
+          onClick={handleClick}
         >
-          <nav className="flex flex-col items-center justify-center">
-            <MobileLink
-              href="/"
-              title="Home"
-              className=""
-              toggle={handleClick}
-            />
-            <MobileLink
-              href="/about"
-              title="About"
-              className=""
-              toggle={handleClick}
-            />
-            <MobileLink
-              href="/projects"
-              title="Projects"
-              className=""
-              toggle={handleClick}
-            />
-            <MobileLink
-              href="/services"
-              title="Services"
-              className=""
-              toggle={handleClick}
-            />
-            <MobileLink
-              href="/blogs"
-              title="Blogs"
-              className=""
-              toggle={handleClick}
-            />
-            <MobileLink
-              href="/contact"
-              title="Contact"
-              className=""
-              toggle={handleClick}
-            />
-          </nav>
-          <nav className="flex flex-wrap items-center justify-center mt-2">
-            <motion.a
-              href="https://linkedin.com/in/vencent-domingo"
-              target={"_blank"}
-              whileHover={{ y: -2 }}
-              whileTap={{ scale: 0.9 }}
-              className="w-6 mx-3 sm:mx-1"
-              toggle={handleClick}
-            >
-              <LinkedInIcon />
-            </motion.a>
+          <span
+            className={`bg-fg transition-all duration-300 ease-out block h-0.5 w-6 rounded-full ${
+              isOpen ? "rotate-45 translate-y-[7px]" : ""
+            }`}
+          />
+          <span
+            className={`bg-fg transition-all duration-300 ease-out block h-0.5 w-6 rounded-full ${
+              isOpen ? "opacity-0 scale-x-0" : ""
+            }`}
+          />
+          <span
+            className={`bg-fg transition-all duration-300 ease-out block h-0.5 w-6 rounded-full ${
+              isOpen ? "-rotate-45 -translate-y-[7px]" : ""
+            }`}
+          />
+        </button>
+      </header>
 
-            <button
-              className={`ml-3 flex items-center justify-center rounded-full p-1 ${
-                mode === "light" ? "bg-dark text-light" : "bg-light text-dark"
-              }`}
-              onClick={() => setMode(mode === "light" ? "dark" : "light")}
-            >
-              {mode === "dark" ? (
-                <SunIcon className="fill-dark text-yellow" />
-              ) : (
-                <MoonIcon className="fill-dark" />
-              )}
-            </button>
-          </nav>
-        </motion.div>
-      ) : null}
+      {/* ── Mobile drawer — outside <header> for correct z-index ── */}
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              key="backdrop"
+              className="fixed inset-0 z-[48] bg-fg/20 backdrop-blur-sm"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              onClick={handleClose}
+            />
 
-      <div className="absolute left-[50%] top-2 translate-x-[-50%]">
-        <Logo />
-      </div>
-    </header>
+            {/* Drawer panel — slides in from the right, sits below header (z-49) */}
+            <motion.div
+              key="drawer"
+              className="fixed top-0 right-0 h-screen w-[75vw] max-w-xs z-[49] bg-bg/95 backdrop-blur-xl border-l border-border/30 flex flex-col pt-24 pb-10 px-7 select-none"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 28, stiffness: 260 }}
+            >
+              {/* Nav links — staggered */}
+              <nav className="flex flex-col">
+                {NAV_ITEMS.map(({ href, title }, i) => (
+                  <motion.div
+                    key={href}
+                    initial={{ opacity: 0, x: 24 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.06 + 0.1, duration: 0.3 }}
+                  >
+                    <MobileLink href={href} title={title} toggle={handleClose} />
+                  </motion.div>
+                ))}
+              </nav>
+
+              {/* Social icons — pinned to bottom */}
+              <div className="mt-auto pt-6 border-t border-border/30">
+                <p className="uppercase tracking-widest text-[10px] text-muted mb-4">
+                  Connect
+                </p>
+                <motion.a
+                  href="https://linkedin.com/in/vencent-domingo"
+                  target="_blank"
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="w-6 inline-block"
+                  onClick={handleClose}
+                >
+                  <LinkedInIcon />
+                </motion.a>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 

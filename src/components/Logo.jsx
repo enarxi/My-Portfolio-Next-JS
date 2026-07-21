@@ -1,28 +1,30 @@
+"use client";
+
 import Link from "next/link";
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const MotionLink = motion(Link);
 
 const Logo = () => {
   return (
-    <div  style={{ fontFamily: 'Playpen Sans, sans-serif' }} className="flex items-center justify-center mt-2 sm:mt-0 select-none center">
+    <div className="flex items-center select-none">
       <MotionLink
         href="/"
-        className="flex items-center justify-center w-16 h-16 text-3xl font-bold border border-transparent border-solid rounded-full bg-light text-dark dark:bg-dark dark:text-light sm:text-2xl sm:w-15 sm:h-15"
-        whileHover={{
-          backgroundColor: [
-            "rgba(35, 186, 206, 1)",
-            "rgba(253,29,29,1)",
-            "rgba(252,176,69,1)",
-            "rgba(51, 116, 201, 1)",
-            "rgba(131,58,180,1)",
-            "rgba(38, 218, 134, 1)",
-          ],
-          transition: { duration: 5, repeat: Infinity},
-        }}
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.95 }}
+        transition={{ duration: 0.2 }}
+        className="flex items-center"
       >
-        VD
+        <Image
+          src="/images/Centi_Portfolio_128x128.png"
+          alt="Vencent Domingo Logo"
+          width={56}
+          height={56}
+          className="w-24 h-24 mix-blend-multiply sm:w-12 sm:h-12"
+          priority
+        />
       </MotionLink>
     </div>
   );

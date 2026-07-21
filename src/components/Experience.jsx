@@ -49,13 +49,13 @@ const Details = ({ position, company, companyLink, time, address, work }) => {
         >
           {position}&nbsp;{" "}
           <a
-            className="capitalize text-primary dark:text-primaryDark"
+            className="capitalize text-accent"
             href={"#experience"}
           >
             @{company}
           </a>
         </motion.h3>
-        <span className="font-medium capitalize text-dark/75 dark:text-light/75 xs:text-sm">
+        <span className="font-medium capitalize text-muted xs:text-sm">
           {time} | {address}
         </span>
         <p className="w-full font-medium md:text-sm">{work}</p>
@@ -78,7 +78,7 @@ const Experience = () => {
       <div ref={ref} className="w-[75%] mx-auto relative lg:w-[50%] md:w-full">
         <motion.div
           style={{ scaleY: scrollYProgress }}
-          className="absolute left-9 top-0 w-[4px] h-full bg-dark origin-top dark:bg-light md:w-[2px] md:left-[30px] xs:left-[20px]"
+          className="absolute left-9 top-0 w-[4px] h-full bg-fg origin-top md:w-[2px] md:left-[30px] xs:left-[20px]"
         />
         <ul className="flex flex-col items-start justify-between w-full ml-4 xs:ml-2">
           {experiences.map(

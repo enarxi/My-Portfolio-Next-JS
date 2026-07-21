@@ -1,40 +1,55 @@
-import '../../src/styles/globals.css'
-import { Montserrat } from 'next/font/google'
-import NavBar from '@/components/NavBar'
-import Footer from '@/components/Footer'
-import PageTransition from '@/components/PageTransition'
-import Script from 'next/script'
-
-const montserrat = Montserrat({
-  subsets: ['latin'],
-  variable: '--font-mont',
-})
+import "../../src/styles/globals.css";
+import NavBar from "@/components/NavBar";
+import Footer from "@/components/Footer";
+import PageTransition from "@/components/PageTransition";
 
 export const metadata = {
-  title: 'Vencent Domingo Portfolio',
-  description: 'Portfolio website of Vencent Domingo',
+  title: "Vencent Domingo Portfolio",
+  description: "Portfolio website of Vencent Domingo",
   icons: {
     icon: [
-      { url: '/images/favicon.ico' },
-      { url: '/images/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/images/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
-      { url: '/images/favicon-192x192.png', sizes: '192x192', type: 'image/png' },
-      { url: '/images/favicon-512x512.png', sizes: '512x512', type: 'image/png' },
+      { url: "/images/favicon.ico" },
+      { url: "/images/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/images/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      {
+        url: "/images/favicon-192x192.png",
+        sizes: "192x192",
+        type: "image/png",
+      },
+      {
+        url: "/images/favicon-512x512.png",
+        sizes: "512x512",
+        type: "image/png",
+      },
     ],
-    apple: '/images/apple-touch-icon.png',
+    apple: "/images/apple-touch-icon.png",
   },
-  manifest: '/images/site.webmanifest',
-}
+  manifest: "/images/site.webmanifest",
+};
 
 export const viewport = {
-  width: 'device-width',
+  width: "device-width",
   initialScale: 1,
-}
+};
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap"
+        />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap"
+        />
         {/* Start of Tawk.to Script */}
         <script
           type="text/javascript"
@@ -54,22 +69,12 @@ export default function RootLayout({ children }) {
         />
         {/* End of Tawk.to Script */}
       </head>
-      <body className={`${montserrat.variable} font-sans bg-light dark:bg-dark dark:text-light w-full min-h-screen`}>
-        <Script id="theme-switcher" strategy="beforeInteractive">
-          {`
-          if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark')
-          } else {
-            document.documentElement.classList.remove('dark')
-          }
-          `}
-        </Script>
+      <body className="font-sans bg-bg text-fg w-full min-h-screen">
+
         <NavBar />
-        <PageTransition>
-          {children}
-        </PageTransition>
+        <PageTransition>{children}</PageTransition>
         <Footer />
       </body>
     </html>
-  )
+  );
 }

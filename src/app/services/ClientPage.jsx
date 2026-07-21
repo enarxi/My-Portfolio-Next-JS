@@ -1,6 +1,7 @@
 "use client"
 
 import AnimatedText from "@/components/AnimatedText";
+
 import HireMe from "@/components/HireMe";
 import Layout from "@/components/Layout";
 import TransitionEffect from "@/components/TransitionEffect";
@@ -64,23 +65,23 @@ const ClientPage = () => {
                 ].map((service, index) => (
                   <div
                     key={index}
-                    className="relative flex flex-col items-center justify-center p-6 border rounded-2xl border-solid border-dark bg-light dark:bg-dark dark:border-light shadow-lg hover:shadow-xl transition-shadow duration-300"
+                    className="relative flex flex-col items-center justify-center p-6 border rounded-2xl border-solid border-border bg-bg shadow-lg hover:shadow-xl transition-shadow duration-300"
                   >
-                    <div className="relative w-full h-full rounded-[2rem] bg-dark dark:bg-light" />
+                    <div className="relative w-full h-full rounded-[2rem] bg-border" />
 
                     <div className="flex justify-center mb-4">
                       {service.icon}
                     </div>
 
-                    <h3 className="text-xl font-semibold text-center mb-2">
+                    <h3 className="text-xl font-semibold text-center mb-2 text-fg">
                       {service.title}
                     </h3>
-                    <p className="text-gray-600 text-center mb-2">
+                    <p className="text-muted text-center mb-2">
                       {service.description}
                     </p>
                     <a
                       href="/contact"
-                      className="mt-auto px-6 py-2 text-black dark:text-white underline underline-offset-4 decoration-wavy decoration-green-600 hover:decoration-green-700 transition duration-300"
+                      className="mt-auto px-6 py-2 text-fg underline underline-offset-4 decoration-wavy decoration-accent hover:decoration-accent/70 transition duration-300"
                     >
                       Get a Quote
                     </a>
@@ -90,6 +91,7 @@ const ClientPage = () => {
             </div>
           </div>
         </Layout>
+
         <HireMe />
       </main>
     </>
