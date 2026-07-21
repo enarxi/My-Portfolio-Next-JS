@@ -5,7 +5,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-const MotionLink = motion(Link);
+const MotionLink = motion.create(Link);
 
 const Logo = () => {
   return (
