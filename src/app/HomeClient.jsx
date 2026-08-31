@@ -7,16 +7,32 @@ import AnimatedText from "@/components/AnimatedText";
 import Link from "next/link";
 import { LinkArrow } from "@/components/Icons";
 import HireMe from "@/components/HireMe";
-
-import lightBulb from '../../public/images/svgs/miscellaneous_icons_1.svg';
 import TransitionEffect from "@/components/TransitionEffect";
 import { Typewriter } from "react-simple-typewriter";
+import Hero from "@/components/Hero";
 
 const HomeClient = () => {
   return (
     <>
       <TransitionEffect />
-      <main className="flex items-center w-full min-h-screen pt-16 mt-12 text-fg">
+      
+      {/* 1. The Modern Gradient Hero Section */}
+      <Hero>
+        <div className="flex flex-col items-center justify-center text-center max-w-[600px] mx-auto p-8 relative z-10">
+          <h1 className="text-6xl font-extrabold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-fg to-muted drop-shadow-[0_0_20px_rgba(255,255,255,0.1)] md:text-5xl sm:text-4xl">
+            Modern Gradient
+          </h1>
+          <p className="text-xl leading-relaxed text-fg/80 mb-8 md:text-lg sm:text-base">
+            A sleek, modern background with soft gradient spheres, subtle movement, and interactive particle effects. Perfect for contemporary web designs.
+          </p>
+          <button className="bg-gradient-to-r from-accent to-primary text-bg font-semibold text-base py-3 px-8 rounded-full uppercase tracking-wider shadow-[0_4px_20px_rgba(255,91,62,0.3)] hover:-translate-y-0.5 hover:shadow-[0_6px_25px_rgba(255,91,62,0.4)] transition-all duration-300">
+            Explore More
+          </button>
+        </div>
+      </Hero>
+
+      {/* 2. The Original Profile Section */}
+      <main className="flex items-center w-full min-h-screen pt-16 text-fg">
         <Layout className="pt-0 md:pt-16 sm:pt-8">
           <div className="flex items-center justify-center w-full lg:flex-col">
             <div className="items-center justify-center w-1/2 mb-4 mr-8 md:m-0 md:w-full">

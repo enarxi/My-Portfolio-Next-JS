@@ -52,8 +52,7 @@ export default function RootLayout({ children }) {
         />
 
       </head>
-      <body className="font-sans bg-bg text-fg w-full min-h-screen">
-
+      <body suppressHydrationWarning className="font-sans bg-bg text-fg w-full min-h-screen">
         <NavBar />
         <PageTransition>{children}</PageTransition>
         <Footer />
