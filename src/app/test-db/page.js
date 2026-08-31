@@ -1,6 +1,9 @@
 import { sql } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
+import MessageForm from './MessageForm';
+
+export const dynamic = 'force-dynamic';
 
 // --- SERVER ACTIONS ---
 
@@ -134,21 +137,10 @@ export default async function TestDB() {
           </form>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-1 gap-8">
           <section className="bg-fg/5 border border-border p-6 rounded-xl shadow-sm backdrop-blur-sm">
             <h2 className="text-xl font-heading font-semibold mb-4 text-primary">1. Create Entry</h2>
-            <form action={addMessage} className="flex flex-col gap-3">
-              <textarea 
-                name="content"
-                required
-                rows={3}
-                placeholder="Type a test message here..."
-                className="w-full p-3 bg-bg border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-accent outline-none transition text-fg placeholder:text-muted"
-              />
-              <button type="submit" className="self-end px-5 py-2.5 bg-primary hover:opacity-80 text-bg rounded-lg shadow transition font-medium">
-                Add to Database
-              </button>
-            </form>
+            <MessageForm addMessage={addMessage} />
           </section>
 
           <section className="bg-fg/5 border border-border p-6 rounded-xl shadow-sm backdrop-blur-sm">
@@ -195,7 +187,7 @@ export default async function TestDB() {
               required
               pattern="Delete demo table"
               title="Please type exactly: Delete demo table"
-              className="w-full md:w-1/2 p-2 bg-bg border border-accent/50 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent outline-none transition text-fg placeholder:text-muted"
+              className="w-1/2 md:w-full p-2 bg-bg border border-accent/50 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent outline-none transition text-fg placeholder:text-muted"
               placeholder="Delete demo table"
               autoComplete="off"
             />
