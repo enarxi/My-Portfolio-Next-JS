@@ -8,7 +8,7 @@ export default function PageTransition({ children }) {
 
   return (
     <AnimatePresence mode='wait'>
-      <div key={pathname}>
+      <div key={pathname} className="flex-grow flex flex-col w-full">
         {children}
       </div>
     </AnimatePresence>
