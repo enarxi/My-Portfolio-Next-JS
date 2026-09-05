@@ -1,15 +1,15 @@
 "use client"
 
-import AnimatedText from "@/components/AnimatedText";
-import Layout from "@/components/Layout";
+import AnimatedText from "@/components/common/AnimatedText";
+import Layout from "@/components/common/Layout";
 import Image from "next/image";
 import React, { useEffect, useRef } from "react";
 import profilePic from "../../../public/images/profile/profile-pic-1.jpg";
 import { useInView, useMotionValue, useSpring } from "framer-motion";
-import Skills from "@/components/Skills";
-import Experience from "@/components/Experience";
-import Education from "@/components/Education";
-import TransitionEffect from "@/components/TransitionEffect";
+import Skills from "@/components/about/Skills";
+import Experience from "@/components/about/Experience";
+import Education from "@/components/about/Education";
+import TransitionEffect from "@/components/common/TransitionEffect";
 import Link from "next/link";
 
 const stats = [

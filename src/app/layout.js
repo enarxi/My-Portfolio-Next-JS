@@ -1,7 +1,7 @@
 import "../../src/styles/globals.css";
-import NavBar from "@/components/NavBar";
-import Footer from "@/components/Footer";
-import PageTransition from "@/components/PageTransition";
+import NavBar from "@/components/common/NavBar";
+import Footer from "@/components/common/Footer";
+import PageTransition from "@/components/common/PageTransition";
 
 export const metadata = {
   title: "Vencent Domingo Portfolio",

@@ -1,10 +1,10 @@
 "use client"
 
-import AnimatedText from "@/components/AnimatedText";
+import AnimatedText from "@/components/common/AnimatedText";
 
-import HireMe from "@/components/HireMe";
-import Layout from "@/components/Layout";
-import TransitionEffect from "@/components/TransitionEffect";
+import HireMe from "@/components/common/HireMe";
+import Layout from "@/components/common/Layout";
+import TransitionEffect from "@/components/common/TransitionEffect";
 import React from "react";
 import {
   MdDesignServices,

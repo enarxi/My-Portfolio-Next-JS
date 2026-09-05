@@ -1,16 +1,16 @@
 "use client"
 
-import AnimatedText from "@/components/AnimatedText";
-import { GithubIcon } from "@/components/Icons";
-import Layout from "@/components/Layout";
+import AnimatedText from "@/components/common/AnimatedText";
+import { GithubIcon } from "@/components/common/Icons";
+import Layout from "@/components/common/Layout";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import projectPlaceholder from "../../../public/images/projects/linktree.png";
 import { motion } from "framer-motion";
-import TransitionEffect from "@/components/TransitionEffect";
+import TransitionEffect from "@/components/common/TransitionEffect";
 
-const FramerImage = motion(Image);
+const FramerImage = motion.create(Image);
 
 const FeaturedProjects = ({ type, title, summary, img, link }) => {
   return (

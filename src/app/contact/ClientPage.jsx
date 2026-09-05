@@ -1,11 +1,11 @@
 "use client"
 
-import Layout from "@/components/Layout";
-import AnimatedText from "@/components/AnimatedText";
-import TransitionEffect from "@/components/TransitionEffect";
+import Layout from "@/components/common/Layout";
+import AnimatedText from "@/components/common/AnimatedText";
+import TransitionEffect from "@/components/common/TransitionEffect";
 import React, { useState } from "react";
 import { FiUser, FiMail, FiMessageSquare } from "react-icons/fi";
-import HireMe from "@/components/HireMe";
+import HireMe from "@/components/common/HireMe";
 
 
 const ClientPage = () => {

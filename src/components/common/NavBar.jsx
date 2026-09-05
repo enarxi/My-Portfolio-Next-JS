@@ -6,7 +6,7 @@ import Logo from "./Logo";
 import { usePathname, useRouter } from "next/navigation";
 import { LinkedInIcon } from "./Icons";
 import { motion, AnimatePresence } from "framer-motion";
-import useThemeSwitcher from "./hooks/useThemeSwitcher";
+import useThemeSwitcher from "../hooks/useThemeSwitcher";
 
 // ─── Desktop link ───────────────────────────────────────────────
 const CustomLink = ({ href, title, className }) => {
@@ -106,7 +106,7 @@ const NavBar = () => {
   return (
     <>
       {/* ── Header bar ────────────────────────────────────────── */}
-      <header className="sticky top-0 z-50 flex items-center justify-between w-full px-32 py-4 font-medium bg-bg/80 backdrop-blur-md border-b border-border/40 lg:px-16 md:px-12 sm:px-8">
+      <header className="fixed top-0 left-0 z-50 flex items-center justify-between w-full px-32 py-4 font-medium bg-bg/80 backdrop-blur-md border-b border-border/40 lg:px-16 md:px-12 sm:px-8">
         {/* Logo — always left */}
         <Logo />
 
