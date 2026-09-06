@@ -98,7 +98,7 @@ const ClientPage = () => {
                       type="text"
                       name="name"
                       id="name"
-                      className={`block w-full pl-10 pr-3 py-2 border ${errors.name ? 'border-red-300' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+                      className={`block w-full pl-10 pr-3 py-2 border ${errors.name ? 'border-red-300' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-base`}
                       placeholder="Your name"
                       value={formData.name}
                       onChange={handleChange}
@@ -106,7 +106,7 @@ const ClientPage = () => {
                       required
                     />
                   </div>
-                  {errors.name && <p className="mt-2 text-sm text-red-600">{errors.name}</p>}
+                  {errors.name && <p className="mt-2 text-base text-red-600">{errors.name}</p>}
                 </div>
 
                 {/* Email Field */}
@@ -122,7 +122,7 @@ const ClientPage = () => {
                       type="email"
                       name="email"
                       id="email"
-                      className={`block w-full pl-10 pr-3 py-2 border ${errors.email ? 'border-red-300' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+                      className={`block w-full pl-10 pr-3 py-2 border ${errors.email ? 'border-red-300' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-base`}
                       placeholder="you@example.com"
                       value={formData.email}
                       onChange={handleChange}
@@ -130,7 +130,7 @@ const ClientPage = () => {
                       required
                     />
                   </div>
-                  {errors.email && <p className="mt-2 text-sm text-red-600">{errors.email}</p>}
+                  {errors.email && <p className="mt-2 text-base text-red-600">{errors.email}</p>}
                 </div>
 
                 {/* Message Field */}
@@ -146,7 +146,7 @@ const ClientPage = () => {
                       name="message"
                       id="message"
                       rows="4"
-                      className={`block w-full pl-10 pr-3 py-2 border ${errors.message ? 'border-red-300' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+                      className={`block w-full pl-10 pr-3 py-2 border ${errors.message ? 'border-red-300' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-base`}
                       placeholder="Your message"
                       value={formData.message}
                       onChange={handleChange}
@@ -154,7 +154,7 @@ const ClientPage = () => {
                       required
                     ></textarea>
                   </div>
-                  {errors.message && <p className="mt-2 text-sm text-red-600">{errors.message}</p>}
+                  {errors.message && <p className="mt-2 text-base text-red-600">{errors.message}</p>}
                 </div>
 
                 {/* Submit Button */}

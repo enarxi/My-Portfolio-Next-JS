@@ -18,7 +18,7 @@ export default function HeroForm({ updateHero, heroData }) {
       className="flex flex-col gap-4"
     >
       <div>
-        <label className="text-sm font-semibold mb-1 block text-fg">Greeting</label>
+        <label className="text-base font-semibold mb-1 block text-fg">Greeting</label>
         <input 
           name="greeting"
           required
@@ -28,7 +28,7 @@ export default function HeroForm({ updateHero, heroData }) {
         />
       </div>
       <div>
-        <label className="text-sm font-semibold mb-1 block text-fg">Name</label>
+        <label className="text-base font-semibold mb-1 block text-fg">Name</label>
         <input 
           name="name"
           required
@@ -38,7 +38,7 @@ export default function HeroForm({ updateHero, heroData }) {
         />
       </div>
       <div>
-        <label className="text-sm font-semibold mb-1 block text-fg">Roles (JSON Array)</label>
+        <label className="text-base font-semibold mb-1 block text-fg">Roles (JSON Array)</label>
         <textarea 
           name="roles"
           required
@@ -49,7 +49,7 @@ export default function HeroForm({ updateHero, heroData }) {
         />
       </div>
       <div>
-        <label className="text-sm font-semibold mb-1 block text-fg">Description</label>
+        <label className="text-base font-semibold mb-1 block text-fg">Description</label>
         <textarea 
           name="description"
           required
@@ -59,7 +59,7 @@ export default function HeroForm({ updateHero, heroData }) {
         />
       </div>
       <div>
-        <label className="text-sm font-semibold mb-1 block text-fg">Image URL (Optional)</label>
+        <label className="text-base font-semibold mb-1 block text-fg">Image URL (Optional)</label>
         <input 
           name="image_url"
           defaultValue={heroData?.image_url || ""}

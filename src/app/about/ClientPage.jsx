@@ -88,7 +88,7 @@ const ClientPage = () => {
                   <p className="inline-block text-7xl font-bold">
                     <AnimateNumbers value={value} />+
                   </p>
-                  <h2 className="text-xl text-center font-medium capitalize text-muted xl:text-center md:text-lg sm:text-base xs:text-sm">
+                  <h2 className="text-xl text-center font-medium capitalize text-muted xl:text-center md:text-lg sm:text-base xs:text-base">
                     {name}
                   </h2>
                 </div>

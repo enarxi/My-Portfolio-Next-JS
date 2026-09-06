@@ -55,10 +55,10 @@ const Details = ({ position, company, companyLink, time, address, work }) => {
             @{company}
           </a>
         </motion.h3>
-        <span className="font-medium capitalize text-muted xs:text-sm">
+        <span className="font-medium capitalize text-muted xs:text-base">
           {time} | {address}
         </span>
-        <p className="w-full font-medium md:text-sm">{work}</p>
+        <p className="w-full font-medium md:text-base">{work}</p>
       </motion.div>
     </li>
   );

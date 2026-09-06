@@ -49,7 +49,7 @@ const Footer = async () => {
             <Link
               href={hire_me_url}
               {...hireMeProps}
-              className="group inline-flex items-center gap-5 border border-border rounded-xl px-6 py-4 hover:border-fg/60 hover:bg-fg/5 transition-all duration-300 w-auto"
+              className="group inline-flex items-center gap-5 border border-border rounded-xl px-6 py-4 backdrop-blur-md bg-fg/10 hover:bg-fg/20 transition-all duration-300 w-auto"
             >
               <Image
                 src="/images/Centi_Portfolio_128x128.png"
@@ -109,7 +109,7 @@ const Footer = async () => {
                     );
                   })
                 ) : (
-                  <p className="text-xs text-muted italic">No social links configured.</p>
+                  <p className="text-base text-muted italic">No social links configured.</p>
                 )}
               </nav>
             </div>

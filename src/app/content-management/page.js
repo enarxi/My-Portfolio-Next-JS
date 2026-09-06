@@ -156,7 +156,7 @@ export default async function CMSPage() {
     return (
       <div className="max-w-md mx-auto mt-24 p-8 font-sans bg-bg border border-border rounded-xl shadow-sm text-fg">
         <h1 className="text-2xl font-heading font-bold mb-4 text-primary">Admin Access Required</h1>
-        <p className="text-muted mb-6 text-sm">Please enter the admin password to access the CMS.</p>
+        <p className="text-muted mb-6 text-base">Please enter the admin password to access the CMS.</p>
         <form action={login} className="flex flex-col gap-4">
           <input
             type="password"
@@ -198,7 +198,7 @@ export default async function CMSPage() {
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-heading font-bold text-primary">Content Management System</h1>
         <form action={logout}>
-          <button type="submit" className="px-4 py-2 text-sm bg-fg/10 hover:bg-fg/20 text-fg rounded transition">
+          <button type="submit" className="px-4 py-2 text-base bg-fg/10 hover:bg-fg/20 text-fg rounded transition">
             Logout
           </button>
         </form>
@@ -226,7 +226,7 @@ export default async function CMSPage() {
               <section className="bg-fg/5 border border-border p-6 rounded-xl shadow-sm backdrop-blur-sm">
                 <h2 className="text-xl font-heading font-semibold mb-4 text-primary">Update Hero Section</h2>
                 <HeroForm updateHero={updateHero} heroData={heroData} />
-                <p className="text-xs text-muted mt-4">
+                <p className="text-base text-muted mt-4">
                   Last updated: {new Date(heroData.updated_at).toLocaleString()}
                 </p>
               </section>
@@ -235,11 +235,11 @@ export default async function CMSPage() {
             {heroTableExists && (
               <div className="p-6 border border-accent/50 bg-accent/10 rounded-xl">
                 <h3 className="text-accent font-heading font-semibold mb-2">Danger Zone — Hero</h3>
-                <p className="text-fg text-sm mb-4">
+                <p className="text-fg text-base mb-4">
                   Delete the hero table and all its data. This will hide the Hero section on the homepage.
                 </p>
                 <form action={dropHeroTable} className="flex flex-col gap-3">
-                  <label className="text-sm text-fg">
+                  <label className="text-base text-fg">
                     Type <strong className="text-accent select-all">Delete hero table</strong> below to confirm:
                   </label>
                   <input
@@ -252,7 +252,7 @@ export default async function CMSPage() {
                     placeholder="Delete hero table"
                     autoComplete="off"
                   />
-                  <button type="submit" className="self-start px-4 py-2 bg-accent text-bg hover:opacity-90 rounded transition text-sm font-medium">
+                  <button type="submit" className="self-start px-4 py-2 bg-accent text-bg hover:opacity-90 rounded transition text-base font-medium">
                     Delete Table
                   </button>
                 </form>
@@ -271,7 +271,7 @@ export default async function CMSPage() {
                   Click the button below to create the{' '}
                   <code className="bg-fg/10 px-1.5 py-0.5 rounded text-fg">footer_content</code> table with default social links and Hire Me settings.
                 </p>
-                <p className="mb-4 text-xs text-muted">
+                <p className="mb-4 text-base text-muted">
                   Note: The footer is currently showing built-in defaults. Initializing the table lets you customize it from this CMS.
                 </p>
                 <form action={initFooter}>
@@ -283,12 +283,12 @@ export default async function CMSPage() {
             ) : (
               <section className="bg-fg/5 border border-border p-6 rounded-xl shadow-sm backdrop-blur-sm">
                 <h2 className="text-xl font-heading font-semibold mb-1 text-primary">Footer & Socials</h2>
-                <p className="text-sm text-muted mb-6">
+                <p className="text-base text-muted mb-6">
                   Customize the Hire Me button and manage your social media links shown in the footer.
                 </p>
                 <FooterForm updateFooter={saveFooterContent} footerData={footerData} />
                 {rawFooter?.updated_at && (
-                  <p className="text-xs text-muted mt-4">
+                  <p className="text-base text-muted mt-4">
                     Last updated: {new Date(rawFooter.updated_at).toLocaleString()}
                   </p>
                 )}
@@ -298,11 +298,11 @@ export default async function CMSPage() {
             {footerTableExists && (
               <div className="p-6 border border-accent/50 bg-accent/10 rounded-xl">
                 <h3 className="text-accent font-heading font-semibold mb-2">Danger Zone — Footer</h3>
-                <p className="text-fg text-sm mb-4">
+                <p className="text-fg text-base mb-4">
                   Delete the footer table. The footer will fall back to built-in defaults.
                 </p>
                 <form action={deleteFooterTable} className="flex flex-col gap-3">
-                  <label className="text-sm text-fg">
+                  <label className="text-base text-fg">
                     Type <strong className="text-accent select-all">Delete footer table</strong> below to confirm:
                   </label>
                   <input
@@ -315,7 +315,7 @@ export default async function CMSPage() {
                     placeholder="Delete footer table"
                     autoComplete="off"
                   />
-                  <button type="submit" className="self-start px-4 py-2 bg-accent text-bg hover:opacity-90 rounded transition text-sm font-medium">
+                  <button type="submit" className="self-start px-4 py-2 bg-accent text-bg hover:opacity-90 rounded transition text-base font-medium">
                     Delete Table
                   </button>
                 </form>

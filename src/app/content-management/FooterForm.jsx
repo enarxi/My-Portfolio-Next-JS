@@ -31,7 +31,7 @@ function UrlInput({ value, onChange, placeholder, id, required = true }) {
           ${invalid ? 'border-red-500 focus:ring-red-400' : 'border-border'}`}
       />
       {invalid && (
-        <p className="text-xs text-red-500">
+        <p className="text-base text-red-500">
           Use https://, http://, mailto:, or an internal path like /contact
         </p>
       )}
@@ -69,7 +69,7 @@ function SocialLinkRow({ link, index, onChange, onRemove }) {
           onChange={(e) => onChange(index, 'name', e.target.value)}
           placeholder="Label (e.g. GITHUB)"
           required
-          className={`w-full p-2 bg-bg border rounded focus:ring-2 focus:ring-accent focus:border-accent outline-none text-fg text-sm transition
+          className={`w-full p-2 bg-bg border rounded focus:ring-2 focus:ring-accent focus:border-accent outline-none text-fg text-base transition
             ${link.name.trim().length === 0 ? 'border-red-400' : 'border-border'}`}
         />
         <UrlInput
@@ -163,7 +163,7 @@ export default function FooterForm({ updateFooter, footerData }) {
         <h3 className="text-base font-heading font-semibold text-fg mb-3">Hire Me Button</h3>
         <div className="flex flex-col gap-4">
           <div>
-            <label htmlFor={`${uid}-label`} className="text-sm font-semibold mb-1 block text-fg">
+            <label htmlFor={`${uid}-label`} className="text-base font-semibold mb-1 block text-fg">
               Button Label
             </label>
             <input
@@ -177,11 +177,11 @@ export default function FooterForm({ updateFooter, footerData }) {
                 ${hireMeText.trim().length === 0 ? 'border-red-400' : 'border-border'}`}
             />
             {hireMeText.trim().length === 0 && (
-              <p className="text-xs text-red-500 mt-1">Label is required.</p>
+              <p className="text-base text-red-500 mt-1">Label is required.</p>
             )}
           </div>
           <div>
-            <label htmlFor={`${uid}-url`} className="text-sm font-semibold mb-1 block text-fg">
+            <label htmlFor={`${uid}-url`} className="text-base font-semibold mb-1 block text-fg">
               Button URL
             </label>
             <UrlInput
@@ -190,7 +190,7 @@ export default function FooterForm({ updateFooter, footerData }) {
               onChange={setHireMeUrl}
               placeholder="/contact or https://calendly.com/..."
             />
-            <p className="text-xs text-muted mt-1">
+            <p className="text-base text-muted mt-1">
               Supports: <code className="bg-fg/10 px-1 rounded">/contact</code>,{' '}
               <code className="bg-fg/10 px-1 rounded">mailto:you@email.com</code>,{' '}
               <code className="bg-fg/10 px-1 rounded">https://calendly.com/...</code>
@@ -208,7 +208,7 @@ export default function FooterForm({ updateFooter, footerData }) {
           <button
             type="button"
             onClick={addLink}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-sm bg-fg/10 hover:bg-fg/20 text-fg rounded transition font-medium"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-base bg-fg/10 hover:bg-fg/20 text-fg rounded transition font-medium"
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
               <path fillRule="evenodd" d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z" clipRule="evenodd" />
@@ -218,7 +218,7 @@ export default function FooterForm({ updateFooter, footerData }) {
         </div>
 
         {socialLinks.length === 0 ? (
-          <p className="text-sm text-muted italic py-4 text-center border border-dashed border-border rounded-lg">
+          <p className="text-base text-muted italic py-4 text-center border border-dashed border-border rounded-lg">
             No social links yet. Click "Add Link" to get started.
           </p>
         ) : (
@@ -238,7 +238,7 @@ export default function FooterForm({ updateFooter, footerData }) {
 
       {/* ── Server Error ──────────────────────────────────────── */}
       {serverError && (
-        <div className="flex items-start gap-2 p-3 bg-red-500/10 border border-red-500/30 rounded-lg text-sm text-red-500">
+        <div className="flex items-start gap-2 p-3 bg-red-500/10 border border-red-500/30 rounded-lg text-base text-red-500">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 mt-0.5 shrink-0">
             <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z" clipRule="evenodd" />
           </svg>

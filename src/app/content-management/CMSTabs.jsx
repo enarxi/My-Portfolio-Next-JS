@@ -18,7 +18,7 @@ export default function CMSTabs({ heroContent, footerContent }) {
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`px-5 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
+            className={`px-5 py-2 text-base font-medium rounded-lg transition-all duration-200 ${
               activeTab === tab.id
                 ? 'bg-primary text-bg shadow-sm'
                 : 'text-muted hover:text-fg hover:bg-fg/10'

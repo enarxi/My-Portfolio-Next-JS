@@ -37,7 +37,7 @@ const HomeClient = ({ heroData }) => {
       {/* 1. The Profile Section inside Hero */}
       {heroData ? (
         <Hero>
-          <div className="flex items-center justify-center relative z-10 w-full max-w-7xl mx-auto px-16 lg:px-8 md:px-6 sm:px-4 py-0 min-h-screen text-fg">
+          <div className="relative z-10 w-full max-w-7xl mx-auto px-16 lg:px-8 md:px-6 sm:px-4 py-0 text-fg">
             <div className="flex items-center justify-center w-full lg:flex-col gap-16 lg:gap-8">
               <div className="items-center justify-center w-1/2 mb-4 md:m-0 md:w-full">
                 {isExternalImage ? (

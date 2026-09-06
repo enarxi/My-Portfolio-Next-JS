@@ -2,6 +2,7 @@ import "../../src/styles/globals.css";
 import NavBar from "@/components/common/NavBar";
 import Footer from "@/components/common/Footer";
 import PageTransition from "@/components/common/PageTransition";
+import Background from "@/components/common/Background";
 
 export const metadata = {
   title: "Vencent Domingo Portfolio",
@@ -53,6 +54,7 @@ export default function RootLayout({ children }) {
 
       </head>
       <body suppressHydrationWarning className="font-sans bg-bg text-fg w-full min-h-screen flex flex-col">
+        <Background />
         <NavBar />
         <PageTransition>{children}</PageTransition>
         <Footer />

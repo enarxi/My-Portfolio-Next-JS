@@ -38,11 +38,11 @@ const FeaturedProjects = ({ type, title, summary, img, link }) => {
           target="_blank"
           className="hover:underline underline-offset-3 decoration-wavy decoration-[#3374c9]"
         >
-          <h2 className="w-full my-2 text-4xl font-bold text-left sm:text-sm">
+          <h2 className="w-full my-2 text-4xl font-bold text-left sm:text-base">
             {title}
           </h2>
         </Link>
-        <p className="my-2 font-medium text-muted sm:text-sm line-clamp-3">
+        <p className="my-2 font-medium text-muted sm:text-base line-clamp-3">
           {summary}
         </p>
         <div className="flex items-center mt-2">
@@ -86,11 +86,11 @@ const Project = ({ type, title, img, link, summary }) => {
           target="_blank"
           className="hover:underline underline-offset-3 decoration-wavy decoration-[#3374c9]"
         >
-          <h2 className="w-full my-2 text-4xl font-bold text-left sm:text-sm">
+          <h2 className="w-full my-2 text-4xl font-bold text-left sm:text-base">
             {title}
           </h2>
         </Link>
-        <span className="my-2 font-medium text-muted sm:text-sm line-clamp-3">
+        <span className="my-2 font-medium text-muted sm:text-base line-clamp-3">
           {summary}
         </span>
         <div className="flex items-center justify-between w-full mt-2">

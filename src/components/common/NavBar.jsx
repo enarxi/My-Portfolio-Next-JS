@@ -49,7 +49,7 @@ const MobileLink = ({ href, title, toggle }) => {
         }`}
       />
       <span
-        className={`uppercase tracking-widest text-sm font-medium transition-colors duration-200 ${
+        className={`uppercase tracking-widest text-base font-medium transition-colors duration-200 ${
           isActive ? "text-accent" : "text-fg group-hover:text-accent"
         }`}
       >
