@@ -9,6 +9,9 @@ These rules apply to ALL work unless the user explicitly opts out.
 ## GATE 0: Knowledge Operating System (KOS) Initialization & Tool Trigger
 Before generating any text response, plan, or code edit for the user, you MUST use your file-system tools (like `list_dir` or `view_file`) to check if `artifacts/knowledge/tech_stack.md` and other KOS files exist. 
 
+**KOS Data Density Rule:** Use high-density notation for all logs. `active_tasks.md` must only contain the immediate sprint (delete completed `[x]` tasks immediately). `changelog.md` is capped at 15 recent entries (older entries must be moved to `changelog_archive.md`).
+
+
 **If ANY file is missing (Initialization & Auto-healing):**
 1. You MUST use your native file-writing tool (e.g., `write_to_file`) to ensure the `artifacts/knowledge` directory exists and to create any missing files among: `active_tasks.md`, `changelog.md`, `tech_stack.md`, and `project_structure.md`. **Do NOT use bash/terminal commands like `mkdir` or `touch` for this.**
 2. Once created, use your native file-reading tools to silently read `package.json` (if applicable) and scan the root directory (`list_dir`).

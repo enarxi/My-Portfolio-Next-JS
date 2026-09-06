@@ -20,6 +20,11 @@ Generate the following output in the chat:
 ## 2. Stage KOS Updates (Mandatory)
 Do NOT write directly to the main KOS files yet. Draft the proposed updates and save them to a staging file.
 
+Before drafting the update, you MUST perform these pruning operations on the live files using direct file edits (`write_to_file` or `replace_file_content`):
+- **Prune Tasks:** Delete any completed `[x]` tasks from `active_tasks.md` entirely. Do not keep a running list of finished items.
+- **Archive Changelog:** Check the length of `changelog.md`. If it has more than 15 entries, move the oldest entries into a new file called `artifacts/knowledge/changelog_archive.md`.
+
+Once pruning is complete:
 1. Generate the exact text to be appended to `artifacts/knowledge/changelog.md` and `artifacts/knowledge/active_tasks.md`.
 2. Use your native file-writing tools (e.g., `write_to_file`) to create `artifacts/knowledge/_pending_kos_update.md` containing the drafted KOS updates.
 
