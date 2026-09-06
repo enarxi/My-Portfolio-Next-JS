@@ -23,6 +23,7 @@ If you are unable to write these files directly, use `python .agent/skills/super
 1) The user must have replied **APPROVED** to a written plan.
 2) The approved plan must exist on disk at:
    - `artifacts/superpowers/plan.md`
+3) You must read `artifacts/knowledge/tech_stack.md` and `artifacts/knowledge/active_tasks.md` to ground your execution in the current project environment. Do not proceed without this context.
 
 If `artifacts/superpowers/plan.md` does not exist:
 - Stop immediately.
