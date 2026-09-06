@@ -43,7 +43,7 @@ const Footer = async () => {
 
           {/* ── Hire Me Section ───────────────────────────────────── */}
           <div className="mb-12">
-            <p className="text-[10px] tracking-[0.2em] text-muted uppercase mb-4 font-medium">
+            <p className="text-base tracking-[0.2em] text-muted uppercase mb-4 font-medium">
               HIRE ME
             </p>
             <Link
@@ -58,7 +58,7 @@ const Footer = async () => {
                 height={44}
                 className="w-11 h-11 mix-blend-multiply dark:mix-blend-normal opacity-80 group-hover:opacity-100 transition-opacity duration-300"
               />
-              <span className="text-[11px] tracking-[0.25em] font-semibold text-fg uppercase group-hover:text-accent transition-colors duration-300">
+              <span className="text-base tracking-[0.25em] font-semibold text-fg uppercase group-hover:text-accent transition-colors duration-300">
                 {hire_me_text}
               </span>
             </Link>
@@ -70,7 +70,7 @@ const Footer = async () => {
 
             {/* SITE */}
             <div>
-              <p className="text-[10px] tracking-[0.2em] text-muted uppercase mb-5 font-medium">
+              <p className="text-base tracking-[0.2em] text-muted uppercase mb-5 font-medium">
                 SITE
               </p>
               <nav className="flex flex-col gap-3 sm:gap-2.5">
@@ -78,7 +78,7 @@ const Footer = async () => {
                   <Link
                     key={href}
                     href={href}
-                    className="group inline-flex items-center gap-2 text-[11px] sm:text-[10px] tracking-[0.15em] font-medium text-fg hover:text-accent transition-colors duration-200"
+                    className="group inline-flex items-center gap-2 text-base sm:text-base tracking-[0.15em] font-medium text-fg hover:text-accent transition-colors duration-200"
                   >
                     <span className="block w-0 h-[1px] bg-accent group-hover:w-4 transition-all duration-300 shrink-0" />
                     {label}
@@ -89,7 +89,7 @@ const Footer = async () => {
 
             {/* SOCIALS */}
             <div>
-              <p className="text-[10px] tracking-[0.2em] text-muted uppercase mb-5 font-medium">
+              <p className="text-base tracking-[0.2em] text-muted uppercase mb-5 font-medium">
                 SOCIALS
               </p>
               <nav className="flex flex-col gap-3 sm:gap-2.5">
@@ -101,7 +101,7 @@ const Footer = async () => {
                         key={link.id ?? i}
                         href={link.url}
                         {...(ext ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                        className="group inline-flex items-center gap-2 text-[11px] sm:text-[10px] tracking-[0.15em] font-medium text-fg hover:text-accent transition-colors duration-200"
+                        className="group inline-flex items-center gap-2 text-base sm:text-base tracking-[0.15em] font-medium text-fg hover:text-accent transition-colors duration-200"
                       >
                         <span className="block w-0 h-[1px] bg-accent group-hover:w-4 transition-all duration-300 shrink-0" />
                         {link.name.toUpperCase()}
@@ -120,7 +120,7 @@ const Footer = async () => {
             <span className="font-heading font-bold text-xl tracking-tight text-fg">
               Vencent<span className="text-accent">.</span>
             </span>
-            <p className="text-[10px] tracking-[0.12em] text-muted uppercase">
+            <p className="text-base tracking-[0.12em] text-muted uppercase">
               © {new Date().getFullYear()} Vencent Domingo. All Rights Reserved.
             </p>
           </div>
