@@ -206,9 +206,5 @@ Confirm files exist by listing `artifacts/superpowers/` when done.
 ## Finish
 
 After all steps complete:
-1. Run `/superpowers-review` (or inline review pass)
-2. Generate final summary with time savings metrics
-3. List all changed files
-4. Provide any manual validation steps
-
-Stop after completing the finish step.
+1) Read and strictly follow the `superpowers-finish` skill (`.agent/skills/superpowers-finish/SKILL.md`) to finalize the task, stage KOS updates, and present the Commit/Rollback gate. Include time savings metrics in the final summary.
+2) Stop execution and wait for the user's COMMIT/ROLLBACK decision as instructed by the skill. Do not skip this prompt.

@@ -73,13 +73,6 @@ Read and apply these skills when relevant:
    - Ask for approval again if the change is material.
 
 ## Finish (required)
-At the end:
-1) Run a review pass (Blocker/Major/Minor/Nit).
-2) Write a final summary to `artifacts/superpowers/finish.md` including:
-   - Verification commands run + results
-   - Summary of changes
-   - Follow-ups (if any)
-   - Manual validation steps (if applicable)
-3) Confirm the artifacts exist by listing `artifacts/superpowers/`.
-
-Stop after completing the finish step.
+At the end of the plan execution:
+1) Read and strictly follow the `superpowers-finish` skill (`.agent/skills/superpowers-finish/SKILL.md`) to finalize the task, stage KOS updates, and present the Commit/Rollback gate.
+2) Stop execution and wait for the user's COMMIT/ROLLBACK decision as instructed by the skill. Do not skip this prompt.
