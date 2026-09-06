@@ -2,7 +2,7 @@
 
 import AnimatedText from "@/components/common/AnimatedText";
 
-import HireMe from "@/components/common/HireMe";
+
 import Layout from "@/components/common/Layout";
 import TransitionEffect from "@/components/common/TransitionEffect";
 import React from "react";
@@ -92,7 +92,7 @@ const ClientPage = () => {
           </div>
         </Layout>
 
-        <HireMe />
+
       </main>
     </>
   );

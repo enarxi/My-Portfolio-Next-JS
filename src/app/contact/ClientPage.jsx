@@ -5,7 +5,7 @@ import AnimatedText from "@/components/common/AnimatedText";
 import TransitionEffect from "@/components/common/TransitionEffect";
 import React, { useState } from "react";
 import { FiUser, FiMail, FiMessageSquare } from "react-icons/fi";
-import HireMe from "@/components/common/HireMe";
+
 
 
 const ClientPage = () => {
@@ -185,8 +185,6 @@ const ClientPage = () => {
 
           </div>
         </Layout>
-
-        <HireMe />
 
       </main>
     </>

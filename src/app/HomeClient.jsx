@@ -5,7 +5,7 @@ import profilePic from "../../public/images/profile/profile-pic.png";
 import AnimatedText from "@/components/common/AnimatedText";
 import Link from "next/link";
 import { LinkArrow } from "@/components/common/Icons";
-import HireMe from "@/components/common/HireMe";
+
 import TransitionEffect from "@/components/common/TransitionEffect";
 import { Typewriter } from "react-simple-typewriter";
 import Hero from "@/components/home/Hero";
@@ -91,9 +91,6 @@ const HomeClient = ({ heroData }) => {
         </Hero>
       ) : null}
 
-      <main className="flex items-center w-full flex-col">
-        <HireMe />
-      </main>
     </>
   );
 };

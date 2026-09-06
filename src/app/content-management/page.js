@@ -2,36 +2,46 @@ import { sql } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import HeroForm from './HeroForm';
+import FooterForm from './FooterForm';
+import CMSTabs from './CMSTabs';
+import {
+  initFooterTable,
+  dropFooterTable,
+  getFooterContent,
+  updateFooterContent,
+  FOOTER_DEFAULTS,
+} from '@/lib/footer-db';
 
 export const dynamic = 'force-dynamic';
 
-// --- SERVER ACTIONS ---
+// ─── SERVER ACTIONS ────────────────────────────────────────────────────────
 
 // Action to handle login
 async function login(formData) {
-  'use server'
+  'use server';
   const password = formData.get('password');
-  
   if (password === process.env.ADMIN_PASSWORD) {
     const cookieStore = await cookies();
-    cookieStore.set('admin_auth', 'true', { 
+    cookieStore.set('admin_auth', 'true', {
       secure: process.env.NODE_ENV === 'production',
-      httpOnly: true, 
-      path: '/' 
+      httpOnly: true,
+      path: '/',
     });
   }
 }
 
 // Action to handle logout
 async function logout() {
-  'use server'
+  'use server';
   const cookieStore = await cookies();
   cookieStore.delete('admin_auth');
 }
 
-// Action to create the table and insert default values
-async function initTable() {
-  'use server'
+// ── Hero Table Actions ───────────────────────────────────────────────────
+
+// Action to create the hero table and insert default values
+async function initHeroTable() {
+  'use server';
   await sql`
     CREATE TABLE IF NOT EXISTS hero_content (
       id SERIAL PRIMARY KEY,
@@ -44,7 +54,6 @@ async function initTable() {
     )
   `;
 
-  // Insert default values if table is empty
   const existing = await sql`SELECT * FROM hero_content LIMIT 1`;
   if (existing.length === 0) {
     await sql`
@@ -63,14 +72,11 @@ async function initTable() {
   revalidatePath('/');
 }
 
-// Action to drop the table entirely
-async function dropTable(formData) {
-  'use server'
+// Action to drop the hero table entirely
+async function dropHeroTable(formData) {
+  'use server';
   const confirmation = formData.get('confirmation');
-  if (confirmation !== 'Delete hero table') {
-    return;
-  }
-  
+  if (confirmation !== 'Delete hero table') return;
   await sql`DROP TABLE IF EXISTS hero_content`;
   revalidatePath('/content-management');
   revalidatePath('/');
@@ -78,41 +84,68 @@ async function dropTable(formData) {
 
 // Action to update hero content
 async function updateHero(formData) {
-  'use server'
+  'use server';
   const greeting = formData.get('greeting');
   const name = formData.get('name');
   const roles = formData.get('roles');
   const description = formData.get('description');
   const image_url = formData.get('image_url');
-  
+
   const existing = await sql`SELECT * FROM hero_content LIMIT 1`;
-  
   if (existing.length > 0) {
-    const id = existing[0].id;
     await sql`
-      UPDATE hero_content 
-      SET greeting = ${greeting}, 
-          name = ${name}, 
-          roles = ${roles}, 
-          description = ${description}, 
-          image_url = ${image_url},
-          updated_at = CURRENT_TIMESTAMP
-      WHERE id = ${id}
+      UPDATE hero_content
+      SET greeting    = ${greeting},
+          name        = ${name},
+          roles       = ${roles},
+          description = ${description},
+          image_url   = ${image_url},
+          updated_at  = CURRENT_TIMESTAMP
+      WHERE id = ${existing[0].id}
     `;
   } else {
-    // Fallback if somehow deleted
     await sql`
       INSERT INTO hero_content (greeting, name, roles, description, image_url)
       VALUES (${greeting}, ${name}, ${roles}, ${description}, ${image_url})
     `;
   }
-  
   revalidatePath('/content-management');
   revalidatePath('/');
 }
 
+// ── Footer Table Actions ─────────────────────────────────────────────────
 
-// --- SERVER COMPONENT ---
+// Action to initialize the footer table
+async function initFooter() {
+  'use server';
+  await initFooterTable();
+  revalidatePath('/content-management');
+  revalidatePath('/');
+}
+
+// Action to drop the footer table
+async function deleteFooterTable(formData) {
+  'use server';
+  const confirmation = formData.get('footer_confirmation');
+  if (confirmation !== 'Delete footer table') return;
+  await dropFooterTable();
+  revalidatePath('/content-management');
+  revalidatePath('/');
+}
+
+// Action to update footer content (called from FooterForm client component via prop)
+async function saveFooterContent({ hire_me_text, hire_me_url, social_links }) {
+  'use server';
+  const result = await updateFooterContent({ hire_me_text, hire_me_url, social_links });
+  if (result.success) {
+    revalidatePath('/content-management');
+    revalidatePath('/');
+  }
+  return result;
+}
+
+
+// ─── SERVER COMPONENT ────────────────────────────────────────────────────
 
 export default async function CMSPage() {
   // 1. Check Authentication
@@ -125,8 +158,8 @@ export default async function CMSPage() {
         <h1 className="text-2xl font-heading font-bold mb-4 text-primary">Admin Access Required</h1>
         <p className="text-muted mb-6 text-sm">Please enter the admin password to access the CMS.</p>
         <form action={login} className="flex flex-col gap-4">
-          <input 
-            type="password" 
+          <input
+            type="password"
             name="password"
             placeholder="Enter password..."
             required
@@ -140,26 +173,29 @@ export default async function CMSPage() {
     );
   }
 
-
-  // 2. Load Dashboard Data (Only runs if authenticated)
+  // 2. Load Hero Data
   let heroData = null;
-  let tableExists = true;
-
+  let heroTableExists = true;
   try {
     const result = await sql`SELECT * FROM hero_content LIMIT 1`;
     if (result.length > 0) {
       heroData = result[0];
     } else {
-      // Table exists but is empty
-      tableExists = false; 
+      heroTableExists = false;
     }
-  } catch (error) {
-    tableExists = false;
+  } catch {
+    heroTableExists = false;
   }
+
+  // 3. Load Footer Data
+  const rawFooter = await getFooterContent();
+  const footerData = rawFooter ?? FOOTER_DEFAULTS;
+  const footerTableExists = rawFooter !== null;
 
   return (
     <div className="max-w-4xl mx-auto p-8 font-sans bg-bg text-fg min-h-screen">
-      <div className="flex justify-between items-center mb-6">
+      {/* Header */}
+      <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-heading font-bold text-primary">Content Management System</h1>
         <form action={logout}>
           <button type="submit" className="px-4 py-2 text-sm bg-fg/10 hover:bg-fg/20 text-fg rounded transition">
@@ -167,53 +203,127 @@ export default async function CMSPage() {
           </button>
         </form>
       </div>
-      
-      {!tableExists || !heroData ? (
-        <div className="bg-accent/10 border border-accent/30 text-fg p-6 rounded-xl shadow-sm mb-8 backdrop-blur-sm">
-          <h2 className="text-xl font-heading font-semibold mb-2 text-accent">Hero Database is missing or empty!</h2>
-          <p className="mb-4 text-muted">Click the button below to safely create the <code className="bg-fg/10 px-1.5 py-0.5 rounded text-fg">hero_content</code> table and insert default values.</p>
-          <form action={initTable}>
-            <button type="submit" className="px-5 py-2.5 bg-accent hover:opacity-90 text-bg rounded-lg shadow transition font-medium">
-              Initialize Database Table
-            </button>
-          </form>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 gap-8">
-          <section className="bg-fg/5 border border-border p-6 rounded-xl shadow-sm backdrop-blur-sm">
-            <h2 className="text-xl font-heading font-semibold mb-4 text-primary">Update Hero Section</h2>
-            <HeroForm updateHero={updateHero} heroData={heroData} />
-            <p className="text-xs text-muted mt-4">
-              Last updated: {new Date(heroData.updated_at).toLocaleString()}
-            </p>
-          </section>
-        </div>
-      )}
 
-      {tableExists && (
-        <div className="mt-12 p-6 border border-accent/50 bg-accent/10 rounded-xl">
-          <h3 className="text-accent font-heading font-semibold mb-2">Danger Zone</h3>
-          <p className="text-fg text-sm mb-4">You can completely delete the hero table and all its data here. This will hide the Hero section on the homepage.</p>
-          <form action={dropTable} className="flex flex-col gap-3">
-            <label className="text-sm text-fg">
-              Type <strong className="text-accent select-all">Delete hero table</strong> below to confirm:
-            </label>
-            <input 
-              type="text" 
-              name="confirmation" 
-              required
-              pattern="Delete hero table"
-              title="Please type exactly: Delete hero table"
-              className="w-1/2 md:w-full p-2 bg-bg border border-accent/50 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent outline-none transition text-fg placeholder:text-muted"
-              placeholder="Delete hero table"
-              autoComplete="off"
-            />
-            <button type="submit" className="self-start px-4 py-2 bg-accent text-bg hover:opacity-90 rounded transition text-sm font-medium">
-              Delete Table
-            </button>
-          </form>
-        </div>
-      )}
+      {/* Tabbed Interface */}
+      <CMSTabs
+        // ── Hero Tab Content ──────────────────────────────────────────────
+        heroContent={
+          <div className="flex flex-col gap-8">
+            {!heroTableExists || !heroData ? (
+              <div className="bg-accent/10 border border-accent/30 text-fg p-6 rounded-xl shadow-sm backdrop-blur-sm">
+                <h2 className="text-xl font-heading font-semibold mb-2 text-accent">Hero Database is missing or empty!</h2>
+                <p className="mb-4 text-muted">
+                  Click the button below to safely create the{' '}
+                  <code className="bg-fg/10 px-1.5 py-0.5 rounded text-fg">hero_content</code> table and insert default values.
+                </p>
+                <form action={initHeroTable}>
+                  <button type="submit" className="px-5 py-2.5 bg-accent hover:opacity-90 text-bg rounded-lg shadow transition font-medium">
+                    Initialize Hero Table
+                  </button>
+                </form>
+              </div>
+            ) : (
+              <section className="bg-fg/5 border border-border p-6 rounded-xl shadow-sm backdrop-blur-sm">
+                <h2 className="text-xl font-heading font-semibold mb-4 text-primary">Update Hero Section</h2>
+                <HeroForm updateHero={updateHero} heroData={heroData} />
+                <p className="text-xs text-muted mt-4">
+                  Last updated: {new Date(heroData.updated_at).toLocaleString()}
+                </p>
+              </section>
+            )}
+
+            {heroTableExists && (
+              <div className="p-6 border border-accent/50 bg-accent/10 rounded-xl">
+                <h3 className="text-accent font-heading font-semibold mb-2">Danger Zone — Hero</h3>
+                <p className="text-fg text-sm mb-4">
+                  Delete the hero table and all its data. This will hide the Hero section on the homepage.
+                </p>
+                <form action={dropHeroTable} className="flex flex-col gap-3">
+                  <label className="text-sm text-fg">
+                    Type <strong className="text-accent select-all">Delete hero table</strong> below to confirm:
+                  </label>
+                  <input
+                    type="text"
+                    name="confirmation"
+                    required
+                    pattern="Delete hero table"
+                    title="Please type exactly: Delete hero table"
+                    className="w-1/2 md:w-full p-2 bg-bg border border-accent/50 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent outline-none transition text-fg placeholder:text-muted"
+                    placeholder="Delete hero table"
+                    autoComplete="off"
+                  />
+                  <button type="submit" className="self-start px-4 py-2 bg-accent text-bg hover:opacity-90 rounded transition text-sm font-medium">
+                    Delete Table
+                  </button>
+                </form>
+              </div>
+            )}
+          </div>
+        }
+
+        // ── Footer Tab Content ────────────────────────────────────────────
+        footerContent={
+          <div className="flex flex-col gap-8">
+            {!footerTableExists ? (
+              <div className="bg-accent/10 border border-accent/30 text-fg p-6 rounded-xl shadow-sm backdrop-blur-sm">
+                <h2 className="text-xl font-heading font-semibold mb-2 text-accent">Footer Database is not initialized!</h2>
+                <p className="mb-4 text-muted">
+                  Click the button below to create the{' '}
+                  <code className="bg-fg/10 px-1.5 py-0.5 rounded text-fg">footer_content</code> table with default social links and Hire Me settings.
+                </p>
+                <p className="mb-4 text-xs text-muted">
+                  Note: The footer is currently showing built-in defaults. Initializing the table lets you customize it from this CMS.
+                </p>
+                <form action={initFooter}>
+                  <button type="submit" className="px-5 py-2.5 bg-accent hover:opacity-90 text-bg rounded-lg shadow transition font-medium">
+                    Initialize Footer Table
+                  </button>
+                </form>
+              </div>
+            ) : (
+              <section className="bg-fg/5 border border-border p-6 rounded-xl shadow-sm backdrop-blur-sm">
+                <h2 className="text-xl font-heading font-semibold mb-1 text-primary">Footer & Socials</h2>
+                <p className="text-sm text-muted mb-6">
+                  Customize the Hire Me button and manage your social media links shown in the footer.
+                </p>
+                <FooterForm updateFooter={saveFooterContent} footerData={footerData} />
+                {rawFooter?.updated_at && (
+                  <p className="text-xs text-muted mt-4">
+                    Last updated: {new Date(rawFooter.updated_at).toLocaleString()}
+                  </p>
+                )}
+              </section>
+            )}
+
+            {footerTableExists && (
+              <div className="p-6 border border-accent/50 bg-accent/10 rounded-xl">
+                <h3 className="text-accent font-heading font-semibold mb-2">Danger Zone — Footer</h3>
+                <p className="text-fg text-sm mb-4">
+                  Delete the footer table. The footer will fall back to built-in defaults.
+                </p>
+                <form action={deleteFooterTable} className="flex flex-col gap-3">
+                  <label className="text-sm text-fg">
+                    Type <strong className="text-accent select-all">Delete footer table</strong> below to confirm:
+                  </label>
+                  <input
+                    type="text"
+                    name="footer_confirmation"
+                    required
+                    pattern="Delete footer table"
+                    title="Please type exactly: Delete footer table"
+                    className="w-1/2 md:w-full p-2 bg-bg border border-accent/50 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent outline-none transition text-fg placeholder:text-muted"
+                    placeholder="Delete footer table"
+                    autoComplete="off"
+                  />
+                  <button type="submit" className="self-start px-4 py-2 bg-accent text-bg hover:opacity-90 rounded transition text-sm font-medium">
+                    Delete Table
+                  </button>
+                </form>
+              </div>
+            )}
+          </div>
+        }
+      />
     </div>
   );
 }

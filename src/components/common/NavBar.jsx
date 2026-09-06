@@ -4,7 +4,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import Logo from "./Logo";
 import { usePathname, useRouter } from "next/navigation";
-import { LinkedInIcon } from "./Icons";
+
 import { motion, AnimatePresence } from "framer-motion";
 import useThemeSwitcher from "../hooks/useThemeSwitcher";
 
@@ -124,16 +124,6 @@ const NavBar = () => {
           </nav>
 
           <div className="flex items-center gap-3">
-            <motion.a
-              href="https://linkedin.com/in/vencent-domingo"
-              target="_blank"
-              whileHover={{ y: -2 }}
-              whileTap={{ scale: 0.9 }}
-              className="w-5"
-            >
-              <LinkedInIcon />
-            </motion.a>
-
             <DarkModeButton mode={mode} setMode={setMode} />
           </div>
         </div>
@@ -204,22 +194,7 @@ const NavBar = () => {
                 ))}
               </nav>
 
-              {/* Social icons — pinned to bottom */}
-              <div className="mt-auto pt-6 border-t border-border/30">
-                <p className="uppercase tracking-widest text-[10px] text-muted mb-4">
-                  Connect
-                </p>
-                <motion.a
-                    href="https://linkedin.com/in/vencent-domingo"
-                    target="_blank"
-                    whileHover={{ y: -2 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="w-6 inline-block"
-                    onClick={handleClose}
-                  >
-                    <LinkedInIcon />
-                  </motion.a>
-              </div>
+
             </motion.div>
           </>
         )}

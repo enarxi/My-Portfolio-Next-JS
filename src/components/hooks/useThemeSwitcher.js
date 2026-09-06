@@ -23,7 +23,8 @@ const useThemeSwitcher = () => {
             }
         }
         else {
-            let check = mediaQuery.matches ? "dark" : "light";
+            // No saved preference — default to dark mode
+            let check = "dark";
             setMode(check);
             window.localStorage.setItem("theme", check);
             if(check=== "dark") {

@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion, useScroll } from "framer-motion";
 
 const ListIcon = ({ reference }) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const { scrollYProgress } = useScroll({
-    target: reference,
+    target: mounted ? reference : undefined,
     offset: ["center end", "center center"],
   });
+
   return (
     <figure className="absolute left-0 stroke-fg">
       <svg

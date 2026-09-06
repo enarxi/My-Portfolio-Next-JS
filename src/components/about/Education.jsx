@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll } from "framer-motion";
 import ListIcon from "./ListIcon";
 
@@ -47,10 +47,17 @@ const Details = ({ type, time, place, info }) => {
 
 const Education = () => {
   const ref = useRef(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const { scrollYProgress } = useScroll({
-    target: ref,
+    target: mounted ? ref : undefined,
     offset: ["start end", "center start"],
   });
+
   return (
     <div className="my-64">
       <h2 className="font-bold text-8xl mb-32 w-full text-center md:text-6xl xs:text-4xl md:mb-16">
@@ -78,4 +85,3 @@ const Education = () => {
 };
 
 export default Education;
-
