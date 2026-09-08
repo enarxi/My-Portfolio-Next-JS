@@ -16,6 +16,7 @@ module.exports = {
       fontFamily: {
         heading: ["var(--font-heading)", "sans-serif"], // font-heading → Space Grotesk
         sans: ["var(--font-body)", "sans-serif"], // font-sans → DM Sans (replaces Montserrat)
+        urbanist: ["var(--font-urbanist)", "sans-serif"], // font-urbanist → Urbanist (homev2)
       },
       colors: {
         bg: "var(--color-bg)", // #FFFFFF
@@ -27,6 +28,18 @@ module.exports = {
       },
       animation: {
         "spin-slow": "spin 8s linear infinite",
+        "marquee": "marquee 30s linear infinite",
+        "marquee2": "marquee2 30s linear infinite",
+      },
+      keyframes: {
+        marquee: {
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(-100%)" },
+        },
+        marquee2: {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(0%)" },
+        },
       },
       backgroundImage: {
         circularLight:
@@ -72,7 +85,14 @@ module.exports = {
 
       xs: { max: "479px" },
       // => @media (max-width: 479px) { ... }
+
+      // Min-width breakpoints for homev2 sidebar layout
+      "desktop": { min: "1024px" },
+      // => @media (min-width: 1024px) { ... }
+      "desktop-xl": { min: "1280px" },
+      // => @media (min-width: 1280px) { ... }
     },
+
   },
   plugins: [],
 };

@@ -4,10 +4,11 @@ import { useState } from 'react';
 
 const TABS = [
   { id: 'hero', label: 'Hero Section' },
+  { id: 'about', label: 'About & Skills' },
   { id: 'footer', label: 'Footer & Socials' },
 ];
 
-export default function CMSTabs({ heroContent, footerContent }) {
+export default function CMSTabs({ heroContent, footerContent, aboutContent }) {
   const [activeTab, setActiveTab] = useState('hero');
 
   return (
@@ -32,6 +33,7 @@ export default function CMSTabs({ heroContent, footerContent }) {
       {/* Tab Panels */}
       <div>
         {activeTab === 'hero' && <div>{heroContent}</div>}
+        {activeTab === 'about' && <div>{aboutContent}</div>}
         {activeTab === 'footer' && <div>{footerContent}</div>}
       </div>
     </div>

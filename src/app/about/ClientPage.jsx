@@ -43,7 +43,7 @@ const AnimateNumbers = ({ value }) => {
   return <span ref={ref}></span>;
 };
 
-const ClientPage = () => {
+const ClientPage = ({ aboutData }) => {
   return (
     <>
       <TransitionEffect />
@@ -96,7 +96,7 @@ const ClientPage = () => {
               <Link href="/projects" className="flex items-center bg-fg text-bg mt-5 p-2.5 px-6 rounded-lg text-lg font-semibold hover:bg-bg hover:text-fg border-2 border-solid border-fg md:p-2 md:px-4 md:text-base">View Projects </Link>
             </div>
           </div>
-          <Skills />
+          <Skills data={aboutData?.skills || null} />
           <Experience />
           <Education />
         </Layout>

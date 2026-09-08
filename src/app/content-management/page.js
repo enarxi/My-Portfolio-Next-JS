@@ -3,6 +3,7 @@ import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import HeroForm from './HeroForm';
 import FooterForm from './FooterForm';
+import AboutForm from './AboutForm';
 import CMSTabs from './CMSTabs';
 import {
   initFooterTable,
@@ -145,6 +146,88 @@ async function saveFooterContent({ hire_me_text, hire_me_url, social_links }) {
 }
 
 
+// ── About Table Actions ────────────────────────────────────────────────────
+
+// Action to create the about table and insert default values
+async function initAboutTable() {
+  'use server';
+  await sql`
+    CREATE TABLE IF NOT EXISTS about_content (
+      id SERIAL PRIMARY KEY,
+      skills JSONB NOT NULL DEFAULT '{}',
+      updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    )
+  `;
+
+  const existing = await sql`SELECT * FROM about_content LIMIT 1`;
+  if (existing.length === 0) {
+    const defaultSkills = {
+      usingNow: [
+        { name: 'HTML5', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },
+        { name: 'CSS3', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg' },
+        { name: 'JavaScript', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
+        { name: 'React', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' }
+      ],
+      learning: [
+        { name: 'NodeJS', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
+        { name: 'TypeScript', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' }
+      ],
+      otherSkills: [
+        { name: 'English C1/C2' },
+        { name: 'Spanish B1/B2' }
+      ]
+    };
+    await sql`
+      INSERT INTO about_content (skills)
+      VALUES (${JSON.stringify(defaultSkills)})
+    `;
+  }
+
+  revalidatePath('/content-management');
+  revalidatePath('/about');
+}
+
+// Action to drop the about table entirely
+async function dropAboutTable(formData) {
+  'use server';
+  const confirmation = formData.get('about_confirmation');
+  if (confirmation !== 'Delete about table') return;
+  await sql`DROP TABLE IF EXISTS about_content`;
+  revalidatePath('/content-management');
+  revalidatePath('/about');
+}
+
+// Action to update about content
+async function updateAbout(formData) {
+  'use server';
+  const skillsJson = formData.get('skills');
+  let parsedSkills;
+  try {
+    parsedSkills = JSON.parse(skillsJson);
+  } catch (e) {
+    return { success: false, error: 'Invalid JSON format' };
+  }
+
+  const existing = await sql`SELECT * FROM about_content LIMIT 1`;
+  if (existing.length > 0) {
+    await sql`
+      UPDATE about_content
+      SET skills = ${skillsJson},
+          updated_at = CURRENT_TIMESTAMP
+      WHERE id = ${existing[0].id}
+    `;
+  } else {
+    await sql`
+      INSERT INTO about_content (skills)
+      VALUES (${skillsJson})
+    `;
+  }
+  revalidatePath('/content-management');
+  revalidatePath('/about');
+  return { success: true };
+}
+
+
 // ─── SERVER COMPONENT ────────────────────────────────────────────────────
 
 export default async function CMSPage() {
@@ -191,6 +274,20 @@ export default async function CMSPage() {
   const rawFooter = await getFooterContent();
   const footerData = rawFooter ?? FOOTER_DEFAULTS;
   const footerTableExists = rawFooter !== null;
+
+  // 4. Load About Data
+  let aboutData = null;
+  let aboutTableExists = true;
+  try {
+    const result = await sql`SELECT * FROM about_content LIMIT 1`;
+    if (result.length > 0) {
+      aboutData = result[0];
+    } else {
+      aboutTableExists = false;
+    }
+  } catch {
+    aboutTableExists = false;
+  }
 
   return (
     <div className="max-w-4xl mx-auto p-8 font-sans bg-bg text-fg min-h-screen">
@@ -313,6 +410,61 @@ export default async function CMSPage() {
                     title="Please type exactly: Delete footer table"
                     className="w-1/2 md:w-full p-2 bg-bg border border-accent/50 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent outline-none transition text-fg placeholder:text-muted"
                     placeholder="Delete footer table"
+                    autoComplete="off"
+                  />
+                  <button type="submit" className="self-start px-4 py-2 bg-accent text-bg hover:opacity-90 rounded transition text-base font-medium">
+                    Delete Table
+                  </button>
+                </form>
+              </div>
+            )}
+          </div>
+        }
+
+        // ── About Tab Content ──────────────────────────────────────────────
+        aboutContent={
+          <div className="flex flex-col gap-8">
+            {!aboutTableExists || !aboutData ? (
+              <div className="bg-accent/10 border border-accent/30 text-fg p-6 rounded-xl shadow-sm backdrop-blur-sm">
+                <h2 className="text-xl font-heading font-semibold mb-2 text-accent">About Database is missing or empty!</h2>
+                <p className="mb-4 text-muted">
+                  Click the button below to safely create the{' '}
+                  <code className="bg-fg/10 px-1.5 py-0.5 rounded text-fg">about_content</code> table and insert default skills.
+                </p>
+                <form action={initAboutTable}>
+                  <button type="submit" className="px-5 py-2.5 bg-accent hover:opacity-90 text-bg rounded-lg shadow transition font-medium">
+                    Initialize About Table
+                  </button>
+                </form>
+              </div>
+            ) : (
+              <section className="bg-fg/5 border border-border p-6 rounded-xl shadow-sm backdrop-blur-sm">
+                <h2 className="text-xl font-heading font-semibold mb-4 text-primary">Update About Section</h2>
+                <AboutForm updateAbout={updateAbout} aboutData={aboutData} />
+                <p className="text-base text-muted mt-4">
+                  Last updated: {new Date(aboutData.updated_at).toLocaleString()}
+                </p>
+              </section>
+            )}
+
+            {aboutTableExists && (
+              <div className="p-6 border border-accent/50 bg-accent/10 rounded-xl">
+                <h3 className="text-accent font-heading font-semibold mb-2">Danger Zone — About</h3>
+                <p className="text-fg text-base mb-4">
+                  Delete the about table and all its data.
+                </p>
+                <form action={dropAboutTable} className="flex flex-col gap-3">
+                  <label className="text-base text-fg">
+                    Type <strong className="text-accent select-all">Delete about table</strong> below to confirm:
+                  </label>
+                  <input
+                    type="text"
+                    name="about_confirmation"
+                    required
+                    pattern="Delete about table"
+                    title="Please type exactly: Delete about table"
+                    className="w-1/2 md:w-full p-2 bg-bg border border-accent/50 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent outline-none transition text-fg placeholder:text-muted"
+                    placeholder="Delete about table"
                     autoComplete="off"
                   />
                   <button type="submit" className="self-start px-4 py-2 bg-accent text-bg hover:opacity-90 rounded transition text-base font-medium">

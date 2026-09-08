@@ -1,54 +1,96 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-const skills = [
-  { id: 1, name: "JavaScript", x: "-20vw", y: "2vw" },
-  { id: 2, name: "CSS/SCSS", x: "-5vw", y: "-10vw" },
-  { id: 3, name: "ReactJS", x: "20vw", y: "6vw" },
-  { id: 4, name: "Next.js", x: "0vw", y: "12vw" },
-  { id: 5, name: "WordPress", x: "-20vw", y: "-15vw" },
-  { id: 6, name: "PHP", x: "15vw", y: "-12vw" },
-  { id: 7, name: ".NET / C#", x: "32vw", y: "-5vw" },
-  { id: 8, name: "Tailwind CSS", x: "1vw", y: "-18vw" },
-  { id: 9, name: "MySQL / Databases", x: "-25vw", y: "10vw" },
-  { id: 10, name: "Technical SEO", x: "18vw", y: "18vw" },
-  { id: 11, name: "Linux CLI", x: "-15vw", y: "-4vw" },
-  { id: 12, name: "Git", x: "-8vw", y: "18vw" },
-  { id: 13, name: "RESTful APIs", x: "-25vw", y: "-9vw" },
-  { id: 14, name: "XML/XSLT", x: "32vw", y: "8vw" },
-  { id: 15, name: "Performance Tuning", x: "15vw", y: "-2vw" },
-];
+const Skills = ({ data }) => {
+  // Use data from DB if available, otherwise fallback to empty arrays
+  const usingNow = data?.usingNow || [];
+  const learning = data?.learning || [];
+  const otherSkills = data?.otherSkills || [];
 
-const Skill = ({ name, x, y }) => {
-  return (
-    <motion.div
-      className="flex items-center justify-center rounded-full font-semibold bg-fg text-bg py-3 px-6 shadow-md cursor-pointer absolute xs:bg-fg xs:text-bg xs:text-bold select-none lg:py-2 lg:px-4 md:text-base md:py-1.5 md:px-3"
-      whileHover={{ scale: 1.05 }}
-      initial={{ x: 0, y: 0 }}
-      whileInView={{ x: x, y: y, transition: { duration: 1.5 } }}
-      viewport={{ once: true }}
-    >
-      {name}
-    </motion.div>
-  );
-};
-
-const Skills = () => {
   return (
     <>
-      <h2 className="w-full mt-64 font-bold text-center text-8xl md:text-6xl md:mt-32 select-none ">
+      <h2 className="w-full mt-64 font-bold text-center text-8xl md:text-6xl md:mt-32 select-none mb-16">
         Skills
       </h2>
-      <div className="w-full h-screen relative flex items-center justify-center rounded-full bg-circularLight lg:h-[80vh] sm:h-[60vh] xs:h-[50vh] lg:bg-circularLightLg md:bg-circularLightMd sm:bg-circularLightSm select-none ">
-        <motion.div
-          className="flex items-center justify-center p-8 font-semibold rounded-full cursor-pointer bg-fg text-bg shadow-md lg:p-6 md:p-4 xs:text-base xs:p-2 select-none "
-          whileHover={{ scale: 1.05 }}
-        >
-          Web
-        </motion.div>
-        {skills.map(({ id, name, x, y }) => (
-          <Skill key={id} name={name} x={x} y={y} />
-        ))}
+      
+      <div className="w-full flex flex-col gap-16 px-4 md:px-8">
+        
+        {/* Using Now */}
+        <section>
+          <h3 className="text-2xl font-bold uppercase tracking-wider mb-8 select-none">
+            Using Now:
+          </h3>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8 gap-y-12 place-items-center">
+            {usingNow.map((skill, idx) => (
+              <motion.div 
+                key={idx} 
+                className="flex flex-col items-center justify-center gap-4 cursor-pointer"
+                whileHover={{ scale: 1.1 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0, transition: { duration: 0.5, delay: idx * 0.1 } }}
+                viewport={{ once: true }}
+              >
+                {skill.iconUrl && (
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 relative flex items-center justify-center">
+                    <img src={skill.iconUrl} alt={skill.name} className="object-contain w-full h-full" />
+                  </div>
+                )}
+                <span className="text-sm font-semibold uppercase tracking-widest text-muted select-none text-center">
+                  {skill.name}
+                </span>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* Learning */}
+        <section>
+          <h3 className="text-2xl font-bold uppercase tracking-wider mb-8 select-none">
+            Learning:
+          </h3>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8 gap-y-12 place-items-center">
+            {learning.map((skill, idx) => (
+              <motion.div 
+                key={idx} 
+                className="flex flex-col items-center justify-center gap-4 cursor-pointer"
+                whileHover={{ scale: 1.1 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0, transition: { duration: 0.5, delay: idx * 0.1 } }}
+                viewport={{ once: true }}
+              >
+                {skill.iconUrl && (
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 relative flex items-center justify-center">
+                    <img src={skill.iconUrl} alt={skill.name} className="object-contain w-full h-full" />
+                  </div>
+                )}
+                <span className="text-sm font-semibold uppercase tracking-widest text-muted select-none text-center">
+                  {skill.name}
+                </span>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* Other Skills */}
+        <section>
+          <h3 className="text-2xl font-bold uppercase tracking-wider mb-8 select-none">
+            Other Skills:
+          </h3>
+          <ul className="list-disc list-inside grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-lg font-medium pl-4">
+            {otherSkills.map((skill, idx) => (
+              <motion.li 
+                key={idx}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5, delay: idx * 0.1 } }}
+                viewport={{ once: true }}
+                className="text-fg/80"
+              >
+                {skill.name}
+              </motion.li>
+            ))}
+          </ul>
+        </section>
+
       </div>
     </>
   );
