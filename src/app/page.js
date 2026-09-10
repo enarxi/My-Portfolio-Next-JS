@@ -1,4 +1,4 @@
-import HomeClient from './HomeClient';
+import HomeClient from "@/components/home/HomeClient";
 import { sql } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';

@@ -11,29 +11,39 @@ import TestimonialsSection from "./TestimonialsSection";
 
 const SECTIONS = ["home", "projects", "services", "about", "contact", "testimonials"];
 
-export default function HomeV2Client() {
+export default function HomeClient() {
   const [activeSection, setActiveSection] = useState("home");
   const observerRef = useRef(null);
 
   useEffect(() => {
-    // Intersection Observer — track which section is in view
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      { threshold: 0.3, rootMargin: "-10% 0px -55% 0px" }
-    );
+    const handleScroll = () => {
+      // Create a trigger line 100px down the screen to accommodate short sections
+      const scrollPos = window.scrollY + 100;
+      let currentSection = "home";
 
-    SECTIONS.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observerRef.current.observe(el);
-    });
+      // Find which section is currently active
+      SECTIONS.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= scrollPos) {
+          currentSection = id;
+        }
+      });
 
-    return () => observerRef.current?.disconnect();
+      // Special case: if we're at the absolute bottom of the page,
+      // force the last section to be active (Testimonials).
+      // Use a 10px buffer to account for minor rounding/zoom discrepancies.
+      if (window.innerHeight + Math.round(window.scrollY) >= document.body.offsetHeight - 10) {
+        currentSection = "testimonials";
+      }
+
+      setActiveSection(currentSection);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    // Run once on mount to set initial state
+    handleScroll();
+
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
